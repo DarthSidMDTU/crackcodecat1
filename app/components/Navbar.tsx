@@ -280,10 +280,10 @@ export function Navbar() {
             </Menu>
             <Stack gap={6} mt="md">
               <Group gap={8}>
-                <ActionIcon component="a" href="https://wa.me/1234567890" target="_blank" rel="noopener noreferrer" color="green" variant="light">
+                <ActionIcon component="a" href="https://wa.me/8744003503" target="_blank" rel="noopener noreferrer" color="green" variant="light">
                   <IconBrandWhatsapp size={20} />
                 </ActionIcon>
-                <ActionIcon component="a" href="tel:1234567890" color="blue" variant="light">
+                <ActionIcon component="a" href="tel:8744003503" color="blue" variant="light">
                   <IconPhoneCall size={20} />
                 </ActionIcon>
               </Group>

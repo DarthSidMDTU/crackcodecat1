@@ -124,7 +124,7 @@ const handleSubmit = async (e: React.FormEvent) => {
           <Stack gap={18}>
             <Stack gap={4}>
               <Group gap={10}>
-                <Text fw={800} fz={22} style={{letterSpacing:-0.5}}>Book Your Demo Class</Text>
+                <Text fw={800} fz={22} style={{letterSpacing:-0.5}}>Book Your Free Trial Classes</Text>
                 {submitted && <Badge color="blue" variant="light">Booked</Badge>}
               </Group>
               <Text fz="sm" c="dimmed">Slots for this week are limited. Reserve yours now.</Text>
@@ -132,7 +132,7 @@ const handleSubmit = async (e: React.FormEvent) => {
 
             <Group grow align="flex-start">
               <TextInput label="Name" placeholder="Your full name" value={name} onChange={(e)=>setName(e.currentTarget.value)} required radius="md" size="md" />
-              <TextInput label="Mobile" placeholder="10 digit number" value={mobile} onChange={(e)=>setMobile(e.currentTarget.value.replace(/[^0-9]/g,''))} maxLength={10} required radius="md" size="md" />
+              <TextInput label="WhatsApp Number" placeholder="10 digit number" value={mobile} onChange={(e)=>setMobile(e.currentTarget.value.replace(/[^0-9]/g,''))} maxLength={10} required radius="md" size="md" />
             </Group>
 
             <TextInput label="Email" placeholder="Your Email" value={email} onChange={(e)=> {setEmail(e.currentTarget.value)}} required radius="md" size="md" />

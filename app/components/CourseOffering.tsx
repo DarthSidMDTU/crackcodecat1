@@ -6,7 +6,7 @@ import { IconTargetArrow, IconChalkboard, IconHelp, IconAward, IconClock, IconLi
 const features = [
   {
     icon: <IconTargetArrow size={36} color="#0066FF" />, title: 'Strategic Elimination',
-    desc: 'Signature "Math Problem Option" technique to pick answers with high accuracy.'
+    desc: 'Master our option-elimination technique to tackle VARC questions like a math problem.'
   },
   {
     icon: <IconChalkboard size={36} color="#FF7A00" />, title: 'Speed-Reading',

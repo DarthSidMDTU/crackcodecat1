@@ -8,7 +8,7 @@ const heroSlides = [
   {
     id: 1,
     topBadge: "FROM SETBACKS TO SUCCESS",
-    mainTitle: "Crack VARC in 45 Days!",
+    mainTitle: "Crack CAT VARC in 45 Days!",
     mentor: {
       name: "Abhishek Anand",
       title: "Lead Mentor",
@@ -21,15 +21,15 @@ const heroSlides = [
       minutes: 19,
       seconds: 37
     },
-    description: "Learn with India's top percentilers. Master VARC through elimination-based solving, 95+ percentile mindset training, and personalized error analysis. Get proven strategies, time management shortcuts, and handpicked resources delivered in a focused 45-day program that turns VARC from guesswork into predictable wins.",
+    description: "Learn with India’s top percentilers and uncover the strategies most aspirants don’t even know exist. In this focused 45-day program, you’ll transform VARC from guesswork into predictable wins—building the mindset, confidence, and precision that consistently deliver 95+ percentile scores. Experience proven approaches, personalized insights, and guidance that turns every challenge into a scoring opportunity.",
     features: [
       "Structured Roadmap",
       "Mentor Support", 
-      "Adaptive Mock Analysis"
+      "Personalized Mock Feedback",
     ],
     ctaButtons: [
       { text: "Enroll Now", variant: "filled", color: "blue" },
-      { text: "Book Free Counseling Call", variant: "filled", color: "grape" }
+      { text: "Book Free Trial Classes", variant: "filled", color: "grape" }
     ]
   }
 ];
@@ -122,7 +122,7 @@ export function HeroCarousel() {
               <Title 
                 order={1}
                 style={{
-                  fontSize: isMobile ? 'clamp(1.6rem, 5.2vw, 2.4rem)' : 'clamp(2rem, 5vw, 4rem)',
+                  fontSize: isMobile ? 'clamp(1.4rem, 4.5vw, 2.1rem)' : 'clamp(1.7rem, 4vw, 3.2rem)', // reduced sizes
                   lineHeight: 1.1,
                   fontWeight: 800,
                   color: '#1a1a1a'
@@ -145,8 +145,37 @@ export function HeroCarousel() {
                 {slide.description}
               </Text>
 
+              {/* CAT 2025 countdown - styled similar to main title */}
+              <Title
+                order={2}
+                style={{
+                  fontSize: isMobile ? 'clamp(1.2rem, 4vw, 1.7rem)' : 'clamp(1.5rem, 3vw, 2.4rem)',
+                  lineHeight: 1.15,
+                  fontWeight: 700,
+                  color: '#d7263d',
+                  marginTop: '8px'
+                }}
+              >
+                {`CAT 2025: ${Math.max(0, Math.ceil((new Date('2025-11-30').getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24)))} days remaining`}
+              </Title>
+
               {/* CTA Buttons */}
               <Group gap={isMobile ? 10 : 15} wrap="wrap">
+                {/* Limited seats text above buttons */}
+                <Text
+                  size={isMobile ? 'sm' : 'md'}
+                  fw={700}
+                  c="red.7"
+                  mb={isMobile ? 2 : 4}
+                  style={{
+                    letterSpacing: '0.5px',
+                    fontWeight: 700,
+                    fontSize: isMobile ? 'clamp(1rem, 3vw, 1.2rem)' : 'clamp(1.1rem, 2vw, 1.3rem)'
+                  }}
+                >
+                  Limited seats!
+                </Text>
+                {/* Buttons */}
                 {slide.ctaButtons.map((button, index) => {
                   const txt = (button.text || '').toLowerCase();
                   // Book / Counseling button -> scroll to schedule

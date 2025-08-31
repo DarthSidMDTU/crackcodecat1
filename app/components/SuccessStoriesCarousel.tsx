@@ -120,7 +120,7 @@ export function SuccessStoriesCarousel() {
                   fontWeight: 800,
                 }}
               >
-                <Text component="span" c="blue.6" inherit>540+</Text>{' '}
+                <Text component="span" c="blue.6" inherit>555+</Text>{' '}
                 Of Our Students Scored{' '}
                 <Text component="span" c="blue.6" inherit>95+%ile</Text>{' '}
                 in CAT
