@@ -133,7 +133,7 @@ export function Navbar() {
             <ActionIcon component="a" href="https://wa.me/8744003503" target="_blank" rel="noopener noreferrer" color="green" variant="light" size="lg">
               <IconBrandWhatsapp size={24} />
             </ActionIcon>
-            <ActionIcon component="a" href="tel:8744003503" color="blue" variant="light" size="lg">
+            <ActionIcon component="a" href="tel:+918744003503" color="blue" variant="light" size="lg">
               <IconPhoneCall size={24} />
             </ActionIcon>
           </Group>

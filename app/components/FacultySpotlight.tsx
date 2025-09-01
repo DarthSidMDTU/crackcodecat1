@@ -38,6 +38,10 @@ export function FacultySpotlight() {
               <Text size="xl" c="dimmed" style={{ lineHeight: 1.6, fontSize: 'clamp(14px, 4.5vw, 18px)' }}>
                 The CAT VARC Expert Who Walked Your Path—
                 Your mentor isn't someone who got lucky once, I'm someone who failed, researched, discovered, and consistently delivered results with proof at every step.
+                <br />
+                <a href="/meetyourmentor" style={{ color: '#0066FF', textDecoration: 'underline', fontWeight: 600 }}>
+                  Read more...
+                </a>
               </Text>
               
               <SimpleGrid cols={{ base: 1, sm: 2 }} spacing={{ base: 10, sm: 14, md: 18 }} mt="md">
@@ -74,14 +78,14 @@ export function FacultySpotlight() {
                     </Box>
                   </Group>
                 </Paper>
-                <Paper withBorder p="md" radius="md" style={{ background: '#fff' }}>
-                  <Group>
+                <Paper withBorder p="md" radius="md" style={{ background: '#fff', height: '100%', display: 'flex', alignItems: 'center' }}>
+                  <Group align="flex-start" gap="sm" style={{ width: '100%' }}>
                     <ThemeIcon size="lg" variant="light" color="orange" radius="md">
                       <IconBriefcase size={24} />
                     </ThemeIcon>
-                    <Box>
-                      <Text fw={700}>Gap Identifier</Text>
-                      <Text size="sm" c="dimmed">What Others Miss</Text>
+                    <Box style={{ flex: 1 }}>
+                      <Text fw={700} style={{ fontSize: 'clamp(14px, 1.8vw, 16px)' }}>Knowledge Gap Identifier</Text>
+                      <Text size="sm" c="dimmed" style={{ fontSize: 'clamp(12px, 1.5vw, 14px)' }}>What Others Miss</Text>
                     </Box>
                   </Group>
                 </Paper>
