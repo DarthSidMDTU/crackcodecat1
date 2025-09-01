@@ -25,11 +25,11 @@ const heroSlides = [
     features: [
       "Structured Roadmap",
       "Mentor Support", 
-      "Personalized Mock Feedback",
+      "Personalized Feedback",
     ],
     ctaButtons: [
       { text: "Enroll Now", variant: "filled", color: "blue" },
-      { text: "Book Free Trial Classes", variant: "filled", color: "grape" }
+      { text: "Book a Free Trial Class", variant: "filled", color: "grape" }
     ]
   }
 ];

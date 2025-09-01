@@ -97,7 +97,7 @@ export default function CrackCodeVARC() {
               mb={8}
               style={{ fontSize: rem(18), fontWeight: 700 }}
             >
-              ⚡ 95+ percentile in just 1–1.5 months!
+              ⚡ 95+ percentile in just 45 days!
             </Badge>
             <Text size="md" c="indigo.7" ta="center">
               Forget 6–12 month cycles. Our methods are <Text span fw={700}>8–10x faster</Text> than traditional coaching.
@@ -124,7 +124,7 @@ export default function CrackCodeVARC() {
                 </ThemeIcon>
               }
             >
-              <List.Item>You’re stuck at 85–90 percentile despite effort</List.Item>
+              <List.Item>You’re stuck below 90 percentile despite efforts</List.Item>
               <List.Item>You’re a working professional with limited time</List.Item>
               <List.Item>You want proven strategies over generic coaching</List.Item>
               <List.Item>You’re ready to think differently about VARC</List.Item>

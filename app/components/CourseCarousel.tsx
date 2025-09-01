@@ -11,19 +11,19 @@ const courseSlides = [
       { text: "FREE TRIAL", variant: "filled", color: "lime" }
     ],
     title: "VARC Mastery",
-    subtitle: "95+ Percentile in Just 1–1.5 Months",
+    subtitle: "95+ Percentile in Just 45 Days!",
     description:
       "Stop preparing, start cracking! Combines strategy-first training, elimination-based solving, and mentor-proven shortcuts to skyrocket your VARC scores. Experience smart, efficient learning designed to give you real percentile gains in your next CAT attempt.",
     features: [
-      "3 powerful strategy masterclasses",
-      "Exclusive 95+ percentile mindset training",
-      "RC Masterclass — fast reading, smart elimination",
-      "Pro para jumbles, summaries & completions tactics",
-      "Elimination-based solving framework",
-      "Personalized error analysis after every session",
+      "Think like a 95+ scorer with proven cognitive models.",
+      "Read faster, spot key info, and apply smart elimination.",
+      "Crack jumbles, summaries, completions, and odd-one-out.",
+      "Solve options logically like math problems.",
+      "Identify weaknesses and fix them with precision.",
+      "Save time with skip, guess, and invest strategies.",
     ],
     stats: [
-      { number: "1-1.5", label: "Months to Results" },
+      { number: "1.5", label: "Months to Results" },
       { number: "95+ %ile", label: "Goal Achievers" },
       { number: "9", label: "Years Mentor Experience" },
       { number: "100%", label: "Personalized Analysis" }
@@ -33,7 +33,7 @@ const courseSlides = [
       currentPrice: "FREE TRIAL",
       discount: "100% OFF trial"
     },
-    guarantee: "Risk-free first session — no payment needed",
+    guarantee: "Risk-Free First Session — NO PAYMENT NEEDED",
     ctaButtons: [
 
       { text: "Book Free Trial", variant: "filled" }

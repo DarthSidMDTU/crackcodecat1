@@ -6,35 +6,35 @@ import { IconTargetArrow, IconChalkboard, IconHelp, IconAward, IconClock, IconLi
 const features = [
   {
     icon: <IconTargetArrow size={36} color="#0066FF" />, title: 'Strategic Elimination',
-    desc: 'Master our option-elimination technique to tackle VARC questions like a math problem.'
+    desc: 'Solve tricky VARC options with a logical elimination framework.'
   },
   {
     icon: <IconChalkboard size={36} color="#FF7A00" />, title: 'Speed-Reading',
-    desc: 'Analysis-based speed reading to spot key info and eliminate wrong options.'
+    desc: 'Spot key info fast, skip fluff, and answer with accuracy.'
   },
   {
-    icon: <IconHelp size={36} color="#E64980" />, title: 'Shortcut Techniques',
-    desc: 'Practical shortcuts: when to skip, when to guess, and how to save time.'
+    icon: <IconHelp size={36} color="#E64980" />, title: 'Time Shortcuts',
+    desc: 'Practical hacks to know when to skip, guess, or invest time.'
   },
   {
-    icon: <IconAward size={36} color="#FFC700" />, title: 'Doubt Support',
-    desc: 'Live doubt resolution during sessions so no confusion carries forward.'
+    icon: <IconBook2 size={36} color="#FFA94D" />, title: 'Para Mastery',
+    desc: 'Reliable methods for Jumbles, Summaries, Completions, and Odd One Out.'
   },
   {
-    icon: <IconListCheck size={36} color="#4C6EF5" />, title: 'Handpicked Resources',
-    desc: 'Curated practice sets and focused strategies for efficient practice.'
-  },
-  {
-    icon: <IconBook2 size={36} color="#FFA94D" />, title: 'Para-Based Tactics',
-    desc: 'Clear methods for Para Jumbles, Completions, and Summary questions.'
+    icon: <IconVideo size={36} color="#FA5252" />, title: 'Mindset Training',
+    desc: 'Build the thinking patterns and mental models of 95+ percentile scorers.'
   },
   {
     icon: <IconCalendarTime size={36} color="#228BE6" />, title: 'Mentor Insights',
-    desc: 'Mentor tips from a 9-year journey from below 70 to 95+ percentile.'
+    desc: 'Gain from my 9-year journey from <70 to 95+ percentile.'
   },
   {
-    icon: <IconVideo size={36} color="#FA5252" />, title: 'Daily Live Classes',
-    desc: 'Daily live classes (Mon–Fri, 8pm) led by CAT top scorers.'
+    icon: <IconListCheck size={36} color="#4C6EF5" />, title: 'Curated Resources Suggestions',
+    desc: 'Recommendations for the best free and premium resources.'
+  },
+  {
+    icon: <IconAward size={36} color="#FFC700" />, title: 'Live Doubt Support',
+    desc: 'Get instant clarity during sessions, no confusion left behind.'
   },
 ];
 

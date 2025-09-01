@@ -15,7 +15,7 @@ export function UnifiedCarousel() {
 
   // autoplay plugin
   const autoplay = useRef(
-    Autoplay({ delay: 2000, stopOnInteraction: false }) // 3s per slide
+    Autoplay({ delay: 3000, stopOnInteraction: false }) // 3s per slide
   );
 
   return (

@@ -8,31 +8,31 @@ const testimonials = [
   {
 
     name: "Pooja",
-    score: "CAT 99.12",
+    score: "CAT(VARC) 99.12",
     quote: "The reading strategies were a revelation. My RC accuracy jumped from 50% to over 90%—it felt easy after the masterclass.",
     percentile: "95"
   },
   {
     name: "Harsh",
-    score: "CAT 98.3",
+    score: "CAT(VARC) 98.3",
     quote: "Speed reading and option elimination changed my approach completely. VARC moved from my weakest to my strongest section.",
     percentile: "94"
   },
   {
     name: "Nikhil",
-    score: "CAT 97.7",
+    score: "CAT(VARC) 97.7",
     quote: "RC doubt clearing sessions helped me get unstuck and stay confident. I finally enjoyed tackling passages!",
     percentile: "93"
   },
   {
     name: "Maya",
-    score: "CAT 99.05",
+    score: "CAT(VARC) 99.05",
     quote: "The personalized guidance for Reading Comprehension was fantastic. I started scoring 95+ in VARC after struggling for months.",
     percentile: "95"
   },
   {
     name: "Divya",
-    score: "CAT 98.85",
+    score: "CAT(VARC) 98.85",
     quote: "Shortcut techniques and mentor's insights helped me finish the RCs efficiently and accurately in actual CAT.",
     percentile: "94"
 
@@ -42,22 +42,22 @@ const testimonials = [
 const studentAchievers = [
   {
     name: "Ishita Mehra",
-    score: "CAT 99.45%ile",
+    score: "CAT(VARC) 99.45%ile",
     avatar: "/1.jpg",
   },
   {
     name: "Rohan Gupta",
-    score: "CAT 99.11%ile",
+    score: "CAT(VARC) 99.11%ile",
     avatar: "/2.jpg",
   },
   {
-    name: "Neha Verma",
-    score: "CAT 98.76%ile",
+    name: "Uday Verma",
+    score: "CAT(VARC) 98.76%ile",
     avatar: "/3.jpg",
   },
   {
     name: "Kunal Singh",
-    score: "CAT 98.25%ile",
+    score: "CAT(VARC) 98.25%ile",
     avatar: "/4.jpg",
   },
 ];
@@ -123,7 +123,7 @@ export function SuccessStoriesCarousel() {
                 <Text component="span" c="blue.6" inherit>555+</Text>{' '}
                 Of Our Students Scored{' '}
                 <Text component="span" c="blue.6" inherit>95+%ile</Text>{' '}
-                in CAT
+                in CAT VARC
               </Title>
               <Text size={isMobile ? 'sm' : 'md'} c="dimmed" mt={isMobile ? 8 : 12}>
                 You can be the next....
@@ -178,9 +178,9 @@ export function SuccessStoriesCarousel() {
                 const isActive = index === currentIndex;
                 const isPrev = index === (currentIndex - 1 + testimonials.length) % testimonials.length;
                 const isNext = index === (currentIndex + 1) % testimonials.length;
-                
+
                 if (!isActive && !isPrev && !isNext) return null;
-                
+
                 return (
                   <Paper 
                     key={index}
@@ -196,6 +196,7 @@ export function SuccessStoriesCarousel() {
                     }}
                   >
                     <Group gap={15} mb={15} align="center">
+                      {/* Serial number instead of percentile */}
                       <Badge 
                         size="lg" 
                         radius="xl" 
@@ -211,14 +212,14 @@ export function SuccessStoriesCarousel() {
                           fontWeight: 700
                         }}
                       >
-                        {testimonial.percentile}
+                        {index + 1}
                       </Badge>
                       <div>
                         <Title order={4} size="h5">
                           {testimonial.name}
                         </Title>
                         <Text size="sm" c="dimmed">
-                          ({testimonial.score})
+                          {testimonial.score}
                         </Text>
                       </div>
                     </Group>

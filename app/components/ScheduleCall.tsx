@@ -79,14 +79,14 @@ const handleSubmit = async (e: React.FormEvent) => {
               Try a Live Class.<br />Feel the Difference.
             </Text>
             <Text fz="sm" c="dimmed" style={{lineHeight:1.5}}>
-              In 15 minutes, experience our teaching style, clear a couple of doubts, and walk away with a focused 30-day plan.
+              In the trial class, experience our teaching style, clear a couple of doubts, and walk away with a focused 45-day plan.
             </Text>
           </Stack>
 
           <Stack gap={10}>
             {[
-              'Live concept walkthrough (real demo)',
-              'Personalized next-30-days mini roadmap',
+              'Live concept walkthrough (Real Demo)',
+              'Personalized next-45-days roadmap',
               'Doubt-solving & exam strategy tips',
               'Zero pressure — join if it fits you'
             ].map(point => (
@@ -124,7 +124,7 @@ const handleSubmit = async (e: React.FormEvent) => {
           <Stack gap={18}>
             <Stack gap={4}>
               <Group gap={10}>
-                <Text fw={800} fz={22} style={{letterSpacing:-0.5}}>Book Your Free Trial Classes</Text>
+                <Text fw={800} fz={22} style={{letterSpacing:-0.5}}>Book Your Free Trial Class</Text>
                 {submitted && <Badge color="blue" variant="light">Booked</Badge>}
               </Group>
               <Text fz="sm" c="dimmed">Slots for this week are limited. Reserve yours now.</Text>
