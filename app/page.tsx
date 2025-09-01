@@ -3,7 +3,7 @@ import { CourseOffering } from './components/CourseOffering';
 import { FacultySpotlight } from './components/FacultySpotlight';
 import { CourseCatalog } from './components/CourseCatalog';
 import { Footer } from './components/Footer';
-import { ScheduleCall } from './components/ScheduleCall';
+import { BookDemo } from './components/BookDemo';
 import { FAQ } from './components/FAQ';
 
 import { Achievers } from './components/Achievers';
@@ -25,7 +25,7 @@ export default function Home() {
  
   <Achievers />
   <FAQ />
-      <ScheduleCall/>
+     <BookDemo/>
 
       <Footer />
     </>

@@ -19,3 +19,14 @@ export async function sendOtpMail(to: string, otp: string) {
     html: `<p>Your OTP is: <b>${otp}</b></p>`,
   });
 }
+
+export async function sendMail(to:string,body: string,subject:string){
+  
+    await transporter.sendMail({
+      from : `"CrackCodeCat" <${process.env.SMTP_USER}>`,
+      to : to,
+      subject : subject,
+      text : body
+    })
+    
+}
