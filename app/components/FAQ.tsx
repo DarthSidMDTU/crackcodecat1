@@ -1,88 +1,79 @@
 "use client";
 import React, { useState, useEffect } from 'react';
-import { Container, Title, Text, Box, Drawer, Group, Anchor, ScrollArea, Stack, Button, Paper } from '@mantine/core';
+import { Container, Title, Text, Box, Drawer, Group, Anchor, ScrollArea, Stack, Button, Paper, Table } from '@mantine/core';
 import { IconChevronRight } from '@tabler/icons-react';
 
 const FAQ_ITEMS = [
   {
     id: 'q1',
-    question: 'What is CAT Exam?',
-    answer:
-      'CAT is a nationwide examination administered by the Indian Institutes of Management (IIMs) to select candidates for admission into various management programs. Besides the IIMs, many other top MBA colleges in India accept the CAT Score, such as FMS Delhi, SPJIMR, MDI, JBIMS, IIT-MBAs, IMT Ghaziabad, and others. CAT tests aptitude, logical reasoning, reading comprehension, and time management, which are essential for future managers.'
+    question: 'What makes CRACK CODE different from traditional CAT coaching?',
+    answer: 'CRACK CODE specializes exclusively in CAT VARC with a proven methodology that delivers results 8-10x faster than traditional coaching. Our approach focuses on elimination-based solving, strategic time management, and personalized error analysis rather than generic batch teaching.'
   },
   {
     id: 'q2',
-    question: 'Is 6 months enough for CAT coaching?',
-    answer:
-      'Yes, it is possible to prepare in 6 months, but it depends on your starting point. If you need to build basics, 8-10 months is ideal. If you already have a strong foundation or scored well previously (e.g., 90+ percentile), 6 months can be more than sufficient.'
+    question: 'Can I really master CAT VARC in just 45 days?',
+    answer: 'Yes, with our focused methodology and strategic approach, 45 days is sufficient for significant VARC improvement. Unlike traditional 6-12 month cycles, we eliminate time wastage by targeting specific knowledge gaps and teaching proven techniques that work consistently.'
   },
   {
     id: 'q3',
-    question: 'What are the fees for CAT coaching online?',
-    answer:
-      'The fees for Cracku’s CAT online coaching range from INR 17,999 to 24,999 depending on the course. For other institutes, it generally ranges between INR 29,999 and 45,999. Cracku is known for CAT-level question quality, concept clarity, and good ROI.'
+    question: 'What is your signature "Math Problem Option" technique?',
+    answer: 'Our signature technique treats VARC questions like mathematical problems, using systematic elimination methods to arrive at correct answers with high accuracy. This logic-driven approach removes guesswork and provides a reliable framework for consistent scoring.'
   },
   {
     id: 'q4',
-    question: 'Is online coaching good for CAT?',
-    answer:
-      'Yes, online coaching is highly effective for aspirants who want to save time and money. It is ideal for college students and working professionals as it allows flexibility, recorded sessions for revision, and easy access to study material.'
+    question: 'How does your speed reading method work for CAT passages?',
+    answer: 'Our analysis-based speed reading system teaches you to extract key information and eliminate wrong options without reading entire passages. You learn to identify crucial elements quickly while maintaining comprehension accuracy.'
   },
   {
     id: 'q5',
-    question: 'What is the Syllabus for CAT and Other MBA Exams in 2025?',
-    answer:
-      'CAT 2025 has three main sections: VARC (Reading Comprehension, Parajumbles, Odd Sentence), DILR (Seating Arrangements, Venn Diagrams, Data Charts), and QA (Arithmetic, Algebra, Geometry, Probability, etc.). NMAT, SNAP, and XAT have similar sections but with additional topics like General Knowledge for XAT and Grammar-focused questions for NMAT and SNAP.'
+    question: 'Do you provide personalized attention in online format?',
+    answer: 'Absolutely. We maintain small batch sizes, provide personalized error analysis, offer live doubt resolution during sessions, and create customized improvement plans based on individual weaknesses and strengths.'
   },
   {
     id: 'q6',
-    question: 'What is CAT Score Vs Percentile for CAT 2024?',
-    answer:
-      'CAT 2024 score vs percentile example: 99.9 percentile ≈ 127 marks, 99 percentile ≈ 95 marks, 95 percentile ≈ 70 marks, 90 percentile ≈ 58 marks, 80 percentile ≈ 44 marks.'
+    question: 'What specific para-question tactics do you teach?',
+    answer: 'We provide clear, systematic methods for Para Jumbles, Para Completions, Para Summary, and Odd One Out questions. These techniques transform what most students consider "guessing games" into predictable, solvable problems.'
   },
   {
     id: 'q7',
-    question: 'How many MBA Seats are there in IIMs?',
-    answer:
-      'There are about 21 IIMs in India. Top IIMs like Ahmedabad, Bangalore, and Calcutta offer 400–500+ seats each, while newer IIMs have 200–400 seats. Overall, thousands of MBA seats are available across all IIMs combined.'
+    question: 'How flexible are your live class timings?',
+    answer: 'Our live interactive classes are scheduled in the evening (7-8 PM) throughout the week for maximum convenience. This timing works well for both working professionals and students, with recorded sessions available for revision.'
   },
   {
     id: 'q8',
-    question: 'What are the important topics for CAT 2025?',
-    answer:
-      'For Quantitative Ability: Arithmetic, Algebra, Geometry, and Number Properties. For VARC: Reading Comprehension, Para Jumbles, Sentence Correction, and Grammar. For LRDI: Seating Arrangements, Tables, Puzzles, and Data Interpretation through graphs and charts.'
+    question: 'What kind of practice materials do you recommend?',
+    answer: 'We provide curated recommendations for both high-quality free resources and premium online materials. Our suggestions focus on strategic solving approaches rather than quantity, ensuring efficient practice with maximum impact.'
   },
   {
     id: 'q9',
-    question: 'Which is better CAT online coaching or CAT offline coaching?',
-    answer:
-      'According to many toppers, online coaching is better as it offers flexibility, self-paced learning, and cost-effectiveness. It saves travel time and expenses while allowing access to recorded sessions for revision.'
+    question: 'What results can I expect with your methodology?',
+    answer: 'Our proven methodology has helped numerous students achieve 95+ percentile in VARC. The systematic approach, combined with personalized guidance and elimination techniques, consistently delivers superior results compared to traditional preparation methods.'
   }
 ];
 
-
+// Comparison table data
+const COMPARISON_DATA = [
+  { aspect: 'Preparation Time', traditional: '6-12 months', crackcode: '45-day focused program' },
+  { aspect: 'Teaching Style', traditional: 'Generic batch teaching', crackcode: 'Personalized error analysis' },
+  { aspect: 'Resource Philosophy', traditional: 'More resources = Better results', crackcode: 'Quality strategies over quantity' },
+  { aspect: 'Problem Solving', traditional: 'Theory-heavy approach', crackcode: 'Real VARC techniques that work' },
+  { aspect: 'Strategy Focus', traditional: 'Formula-based solving', crackcode: 'Logic-based elimination framework' },
+  { aspect: 'Mentor Background', traditional: 'General teaching experience', crackcode: 'Proven transformation journey' },
+  { aspect: 'Results Timeline', traditional: 'Gradual improvement', crackcode: '8-10x faster results' },
+  { aspect: 'Success Proof', traditional: 'Marketing claims', crackcode: 'Documented scorecards & evidence' }
+];
 
 export function FAQ() {
   const [open, setOpen] = useState(false);
-  const [active, setActive] = useState<string | null>(null);
+  const [active, setActive] = useState(null);
+  const [showComparison, setShowComparison] = useState(false);
+  
   // Force the desktop order/row layout exactly as requested
   const ORDERED_IDS = ['q1', 'q2', 'q3', 'q4', 'q5', 'q6', 'q7', 'q8', 'q9'];
-  const ORDERED_FAQ = ORDERED_IDS.map((id) => FAQ_ITEMS.find((f) => f.id === id)!).filter(Boolean);
-
-  const mdSpanForIndex = (i: number) => {
-    // Row 1: 0..2 -> 3 items -> md=4 each
-    if (i <= 2) return 4;
-    // Row 2: 3..4 -> 2 items -> md=6 each
-    if (i <= 4) return 6;
-    // Row 3: 5..6 -> 2 items -> md=6 each
-    if (i <= 6) return 6;
-    // Row 4: 7..8 -> 2 items -> md=6 each
-    return 6;
-  };
+  const ORDERED_FAQ = ORDERED_IDS.map((id) => FAQ_ITEMS.find((f) => f.id === id)).filter(Boolean);
 
   useEffect(() => {
     if (open && active) {
-      // small timeout ensures drawer content is rendered before scrolling
       setTimeout(() => {
         const el = document.getElementById(`answer-${active}`);
         if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -90,16 +81,53 @@ export function FAQ() {
     }
   }, [open, active]);
 
-  const handleOpen = (id: string) => {
+  const handleOpen = (id) => {
     setActive(id);
+    setOpen(true);
+    setShowComparison(false);
+  };
+
+  const handleComparisonOpen = () => {
+    setShowComparison(true);
+    setActive(null);
     setOpen(true);
   };
 
   return (
     <Box component="section" id="faqs" py={48} style={{ background: 'linear-gradient(180deg, rgba(255,255,255,0.02), transparent)' }}>
       <Container size="lg">
-        <Title  order={2} mb={6} style={{ color: '#0b66ff', letterSpacing: -0.2 }}>Frequently Asked Questions</Title>
-  <Box style={{ display: 'flex', flexWrap: 'wrap', columnGap: 24, rowGap: 8, alignItems: 'center' }}>
+        <Title order={2} mb={6} style={{ color: '#0b66ff', letterSpacing: -0.2 }}>
+          Frequently Asked Questions
+        </Title>
+        
+        {/* Comparison Table Button */}
+        <Box mb={24}>
+          <Paper
+            role="button"
+            tabIndex={0}
+            onClick={handleComparisonOpen}
+            onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && handleComparisonOpen()}
+            withBorder
+            radius={8}
+            style={{
+              cursor: 'pointer',
+              background: 'linear-gradient(135deg, #0b66ff 0%, #1c7aff 100%)',
+              border: 'none',
+              padding: '16px 24px',
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: 12,
+              color: 'white'
+            }}
+          >
+            <Text fw={700} size="sm" style={{ color: 'white' }}>
+              🆚 CRACK CODE vs Traditional CAT Coaching - See the Difference
+            </Text>
+            <IconChevronRight size={16} color="white" />
+          </Paper>
+        </Box>
+
+        <Box style={{ display: 'flex', flexWrap: 'wrap', columnGap: 24, rowGap: 8, alignItems: 'center' }}>
           {ORDERED_FAQ.map((it, i) => (
             <React.Fragment key={it.id}>
               <Paper
@@ -145,45 +173,89 @@ export function FAQ() {
           ))}
         </Box>
 
-        <Drawer opened={open} onClose={() => setOpen(false)} position="right" size="lg" title="FAQ Answers">
+        <Drawer opened={open} onClose={() => setOpen(false)} position="right" size="lg" 
+               title={showComparison ? "Coaching Comparison" : "FAQ Answers"}>
           <Stack gap={10}>
-            <Group gap={8} wrap="wrap" style={{ paddingBottom: 6 }}>
-              {FAQ_ITEMS.map((it) => (
-                <Anchor
-                  key={it.id}
-                  href={`#answer-${it.id}`}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    setActive(it.id);
-                    const el = document.getElementById(`answer-${it.id}`);
-                    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                  }}
-                  c="#0b66ff"
-                  underline="never"
-                  style={{
-                    background: 'rgba(11,102,255,0.10)',
-                    padding: '6px 10px',
-                    borderRadius: 8,
-                    fontSize: 12,
-                    fontWeight: 600
-                  }}
-                >
-                  {it.question}
-                </Anchor>
-              ))}
-            </Group>
+            {!showComparison && (
+              <Group gap={8} wrap="wrap" style={{ paddingBottom: 6 }}>
+                {FAQ_ITEMS.map((it) => (
+                  <Anchor
+                    key={it.id}
+                    href={`#answer-${it.id}`}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setActive(it.id);
+                      const el = document.getElementById(`answer-${it.id}`);
+                      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }}
+                    c="#0b66ff"
+                    underline="never"
+                    style={{
+                      background: 'rgba(11,102,255,0.10)',
+                      padding: '6px 10px',
+                      borderRadius: 8,
+                      fontSize: 12,
+                      fontWeight: 600
+                    }}
+                  >
+                    {it.question}
+                  </Anchor>
+                ))}
+              </Group>
+            )}
 
             <ScrollArea style={{ height: '65vh' }}>
-              <Stack gap={18}>
-                {FAQ_ITEMS.map((it) => (
-                  <Box key={it.id} id={`answer-${it.id}`}>
-                    <Title order={4} mb={6}>{it.question}</Title>
-                    <Text c="dimmed">{it.answer}</Text>
+              {showComparison ? (
+                <Box>
+                  <Title order={3} mb={16} style={{ color: '#0b66ff' }}>
+                    Why Choose CRACK CODE Over Traditional CAT Coaching?
+                  </Title>
+                  <Table striped highlightOnHover withTableBorder>
+                    <Table.Thead>
+                      <Table.Tr>
+                        <Table.Th style={{ fontWeight: 700, color: '#1f2937' }}>Aspect</Table.Th>
+                        <Table.Th style={{ fontWeight: 700, color: '#dc2626' }}>Traditional CAT Coaching</Table.Th>
+                        <Table.Th style={{ fontWeight: 700, color: '#0b66ff' }}>CRACK CODE Method</Table.Th>
+                      </Table.Tr>
+                    </Table.Thead>
+                    <Table.Tbody>
+                      {COMPARISON_DATA.map((row, index) => (
+                        <Table.Tr key={index}>
+                          <Table.Td style={{ fontWeight: 600 }}>{row.aspect}</Table.Td>
+                          <Table.Td style={{ color: '#6b7280' }}>{row.traditional}</Table.Td>
+                          <Table.Td style={{ color: '#0b66ff', fontWeight: 600 }}>{row.crackcode}</Table.Td>
+                        </Table.Tr>
+                      ))}
+                    </Table.Tbody>
+                  </Table>
+                  <Box mt={20} p={16} style={{ background: '#f0f9ff', borderRadius: 8, border: '1px solid #0ea5e9' }}>
+                    <Text fw={700} style={{ color: '#0b66ff', marginBottom: 8 }}>
+                      The Result: 8-10x faster CAT VARC improvement
+                    </Text>
+                    <Text size="sm" style={{ color: '#374151' }}>
+                      Our focused methodology eliminates time wastage and delivers proven results through systematic, 
+                      personalized coaching that addresses your specific knowledge gaps.
+                    </Text>
                   </Box>
-                ))}
-              </Stack>
+                </Box>
+              ) : (
+                <Stack gap={18}>
+                  {FAQ_ITEMS.map((it) => (
+                    <Box key={it.id} id={`answer-${it.id}`}>
+                      <Title order={4} mb={6} style={{ color: '#1f2937' }}>{it.question}</Title>
+                      <Text c="dimmed" style={{ lineHeight: 1.6 }}>{it.answer}</Text>
+                    </Box>
+                  ))}
+                </Stack>
+              )}
             </ScrollArea>
+            
             <Group align="center" style={{ justifyContent: 'flex-end' }}>
+              {showComparison && (
+                <Button variant="filled" onClick={() => setShowComparison(false)} style={{ background: '#0b66ff' }}>
+                  View FAQs
+                </Button>
+              )}
               <Button variant="outline" onClick={() => setOpen(false)}>Close</Button>
             </Group>
           </Stack>
