@@ -4,14 +4,12 @@ import {
   Card,
   Stack,
   TextInput,
-  Select,
   Button,
   Group,
   Text,
   Badge,
 } from "@mantine/core";
-import { IconArrowRight } from "@tabler/icons-react";
-import { IconCheck } from "@tabler/icons-react";
+import { IconArrowRight, IconCheck } from "@tabler/icons-react";
 import axios from "axios";
 
 export function BookDemo() {
@@ -20,28 +18,22 @@ export function BookDemo() {
   const [email, setEmail] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState < string | null > (null);
 
   const validate = () => {
     if (!name.trim()) return "Name is required";
-
-    // ✅ Mobile: exactly 10 digits
     if (!/^\d{10}$/.test(mobile)) return "Enter a valid 10-digit mobile number";
-
-    // ✅ Email: proper format check
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!email.trim()) return "Enter your email";
     if (!emailRegex.test(email)) return "Enter a valid email address";
-
     return null;
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    const v = validate(); // returns error string or null
-    if (v) {
-      setError(v);
+    const validationError = validate();
+    if (validationError) {
+      setError(validationError);
       return;
     }
 
@@ -49,21 +41,12 @@ export function BookDemo() {
     setSubmitting(true);
 
     try {
-      const res = await axios.post("/api/demo", {
-        name,
-        email,
-        mobile,
-      });
-
-      // ✅ Handle success (assuming 200 OK)
+      // NOTE: Replace "/api/consultation" with your actual Next.js API route.
+      const res = await axios.post("/api/demo", { name, email, mobile });
       console.log("Success:", res.data);
-
-      // ✅ Reset form fields
       setSubmitted(true);
     } catch (err: any) {
       console.error("Error submitting:", err);
-
-      // ✅ Axios error handling
       if (err.response && err.response.data) {
         setError(err.response.data.message || "Something went wrong!");
       } else {
@@ -76,19 +59,19 @@ export function BookDemo() {
 
   return (
     <Card
-      id="schedule"
+      id="consultation"
       withBorder
       radius="lg"
       shadow="sm"
       p="xl"
       style={{
         maxWidth: 980,
-        margin: "0 auto 80px",
+        margin: "80px auto",
         background: "linear-gradient(135deg,#ffffff 0%,#f4f8ff 100%)",
       }}
     >
       <Group align="stretch" gap={40} wrap="wrap" justify="space-between">
-        {/* Left rail */}
+        {/* Left Info Column */}
         <Stack flex={1} gap={22} style={{ minWidth: 260, maxWidth: 360 }}>
           <Stack gap={8}>
             <Badge
@@ -99,32 +82,33 @@ export function BookDemo() {
                   background: "#EAF2FF",
                   color: "#0b66ff",
                   fontWeight: 600,
+                  alignSelf: 'flex-start'
                 },
               }}
             >
-              FREE DEMO CLASS
+              FREE 1-ON-1 CALL
             </Badge>
             <Text
               fw={800}
               fz={28}
               style={{ letterSpacing: -0.8, lineHeight: 1.15 }}
             >
-              Try a Live Class.
+              Get Expert Guidance.
               <br />
-              Feel the Difference.
+              Build Your CAT Strategy.
             </Text>
             <Text fz="sm" c="dimmed" style={{ lineHeight: 1.5 }}>
-              In 15 minutes, experience our teaching style, clear a couple of
-              doubts, and walk away with a focused 30-day plan.
+              Schedule a free 15-minute call to discuss your preparation, clear your doubts, and get a personalized roadmap from a CAT expert.
             </Text>
           </Stack>
 
           <Stack gap={10}>
             {[
-              "Live concept walkthrough (real demo)",
-              "Personalized next-30-days mini roadmap",
-              "Doubt-solving & exam strategy tips",
-              "Zero pressure — join if it fits you",
+              "Personalized CAT preparation strategy",
+              "Clear your specific doubts with an expert",
+              "Guidance on section-wise approach",
+              "Understand our unique mentorship program",
+              "No-obligation, purely informational call",
             ].map((point) => (
               <Group key={point} gap={10} align="flex-start">
                 <Badge
@@ -149,27 +133,26 @@ export function BookDemo() {
           </Stack>
 
           <Text fz={11} c="dimmed" style={{ maxWidth: 300 }}>
-            No spam. No pushy sales. Just a real class experience and your next
-            steps.
+            No spam. No pressure. Just a helpful conversation to plan your next steps.
           </Text>
         </Stack>
 
-        {/* Form column */}
+        {/* Right Form Column */}
         <form onSubmit={handleSubmit} style={{ flex: 1, minWidth: 300 }}>
           <Stack gap={18}>
             <Stack gap={4}>
               <Group gap={10}>
                 <Text fw={800} fz={22} style={{ letterSpacing: -0.5 }}>
-                  Book Your Free Trial Classes
+                  Book Your Free Consultation
                 </Text>
                 {submitted && (
                   <Badge color="blue" variant="light">
-                    Booked
+                    Booked!
                   </Badge>
                 )}
               </Group>
               <Text fz="sm" c="dimmed">
-                Slots for this week are limited. Reserve yours now.
+                Limited slots available. Reserve your spot now.
               </Text>
             </Stack>
 
@@ -201,16 +184,14 @@ export function BookDemo() {
               label="Email"
               placeholder="Your Email"
               value={email}
-              onChange={(e) => {
-                setEmail(e.currentTarget.value);
-              }}
+              onChange={(e) => setEmail(e.currentTarget.value)}
               required
               radius="md"
               size="md"
             />
 
             {error && (
-              <Text fz={12} c="red">
+              <Text size="xs" c="red" mt={4}>
                 {error}
               </Text>
             )}
@@ -230,7 +211,7 @@ export function BookDemo() {
                   },
                 }}
               >
-                {submitting ? "Booking..." : "Book Demo Class"}
+                {submitting ? "Booking..." : "Book Consultation Call"}
               </Button>
             )}
 
@@ -245,14 +226,8 @@ export function BookDemo() {
                 }}
               >
                 <Text fz="sm" fw={500} c="blue">
-                  Thanks {name.split(" ")[0] || "there"}! Your demo class is
-                  booked. We'll reach out shortly .
+                  Thanks, {name.split(" ")[0] || "there"}! Your call is booked. We'll reach out on WhatsApp shortly.
                 </Text>
-                {/* <Button mt={12} variant="subtle" size="xs" onClick={()=>{
-                  setSubmitted(false); setName(''); setMobile(''); setEmail('');
-                }}>
-                  Book another demo
-                </Button> */}
               </Card>
             )}
           </Stack>
@@ -261,5 +236,3 @@ export function BookDemo() {
     </Card>
   );
 }
-
-export default BookDemo;

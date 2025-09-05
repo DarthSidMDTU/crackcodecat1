@@ -10,12 +10,13 @@ import { Achievers } from './components/Achievers';
 
 import ScoreStrip from './components/ScoreStrip';
 import CrackCodeVARC from './components/CrackCodeVARC';
+import { Navbar } from './components/Navbar';
 
 
 export default function Home() {
   return (
     <>
-
+  <Navbar/>
       <UnifiedCarousel />
       {/* <ScoreStrip/> */}
       <CourseOffering />

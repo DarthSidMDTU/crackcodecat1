@@ -26,7 +26,7 @@ export async function POST(req: NextRequest) {
     if (existingStudent) {
       return NextResponse.json(
         {
-          message: "A demo is already booked with this email or mobile number.",
+          message: "Call is already booked with this email or mobile number.",
           success: false,
         },
         { status: 409 }
@@ -50,14 +50,14 @@ export async function POST(req: NextRequest) {
 
     // ✅ Try sending confirmation email separately
     try {
-      const SUBJECT = "DEMO CLASS REGISTRATION SUCCESSFUL";
+      const SUBJECT = "CONSULTATION CALL BOOKING SUCCESSFUL";
       const BODY =
-        "Thank you for registering for the demo class, we will contact you soon.";
+        "You have booked a free consultation call with our mentor, we will contact you soon.";
       await sendMail(email, BODY, SUBJECT);
 
       return NextResponse.json(
         {
-          message: "Demo booked successfully and email sent!",
+          message: "Call booked successfully and email sent!",
           success: true,
           student,
         },
@@ -68,7 +68,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json(
         {
           message:
-            "Demo booked successfully, but confirmation email could not be sent.",
+            "Call booked successfully, but confirmation email could not be sent.",
           success: true,
           student,
           emailError: err.message,

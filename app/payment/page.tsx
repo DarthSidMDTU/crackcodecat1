@@ -2,10 +2,12 @@
 import axios from "axios";
 import Script from "next/script";
 import { useState, useMemo, useEffect } from 'react';
-import { Card, Stack, Text, Group, Button, Divider, Badge, TextInput, LoadingOverlay, ThemeIcon, rem } from '@mantine/core';
+import { Card, Stack, Text, Group, Button, Divider, LoadingOverlay, ThemeIcon } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 import { IconShieldCheck, IconLock, IconArrowRight } from '@tabler/icons-react';
 import { Document } from "mongoose";
+import { useUser } from "@/hooks/getuser";
+import { useRouter } from 'next/navigation';
 
 interface Course extends Document {
   courseName: string;
@@ -16,13 +18,19 @@ interface Course extends Document {
 }
 
 export default function Payment() {
+  const router = useRouter();
   const isMobile = useMediaQuery('(max-width: 640px)');
-  const [loading, setLoading] = useState(false);
+  const [paymentProcessing, setPaymentProcessing] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [custName, setCustName] = useState('');
-  const [custEmail, setCustEmail] = useState('');
-  const [custPhone, setCustPhone] = useState('');
   const [course, setCourse] = useState<Course>();
+  const { user, loading: userLoading } = useUser();
+
+  useEffect(() => {
+    // If user fetching is done and there's no user, redirect to login
+    if (!userLoading && !user) {
+      router.push('/auth/signin');
+    }
+  }, [user, userLoading, router]);
 
   useEffect(() => {
     const fetchCourse = async () => {
@@ -44,21 +52,18 @@ export default function Payment() {
     };
   }, [course]);
 
-  const valid = custName.trim() && /\S+@\S+\.\S+/.test(custEmail) && /^\d{10}$/.test(custPhone);
-
   const handlePay = async () => {
-    if (!valid) {
-      setError('Enter valid name, email & 10-digit mobile number.');
-      return;
-    }
     setError(null);
-    setLoading(true);
+    setPaymentProcessing(true);
+    console.log("sending this");
+    console.log(course?._id);
+    console.log(user?.userId);
+    
     try {
+
       const orderRes = await axios.post("/api/purchase/initiate", {
-        course_Id: course?.id,
-        name: custName,
-        email: custEmail,
-        phone: custPhone,
+        courseId: course?._id,
+        userId: user?.userId,
       });
 
       const paymentUrl = orderRes.data.paymentUrl;
@@ -71,61 +76,9 @@ export default function Payment() {
       console.error(e);
       setError(e?.response?.data?.message || 'Could not initiate payment.');
     } finally {
-      setLoading(false);
+      setPaymentProcessing(false);
     }
   };
-
-  const formCard = (
-    <Card withBorder radius="md" p="xl" style={{ flex: 1, minWidth: 300, position: 'relative' }}>
-      <Stack gap={isMobile ? 24 : 32}>
-        <Text fw={700} fz={20}>Your Details</Text>
-        <Stack gap={16}>
-          <TextInput
-            label="Full Name"
-            placeholder="Enter name"
-            value={custName}
-            onChange={e => setCustName(e.currentTarget.value)}
-            required
-            radius="md"
-            size="md"
-          />
-          <TextInput
-            label="Email"
-            placeholder="you@example.com"
-            value={custEmail}
-            onChange={e => setCustEmail(e.currentTarget.value)}
-            required
-            radius="md"
-            size="md"
-          />
-          <TextInput
-            label="Mobile"
-            placeholder="10 digit"
-            value={custPhone}
-            onChange={e => setCustPhone(e.currentTarget.value.replace(/[^0-9]/g, ''))}
-            maxLength={10}
-            required
-            radius="md"
-            size="md"
-          />
-        </Stack>
-        {error && <Text fz="sm" c="red">{error}</Text>}
-        <Button
-          size="lg"
-          radius="md"
-          fullWidth
-          disabled={!valid || loading}
-          loading={loading}
-          rightSection={<IconArrowRight size={20} />}
-          styles={{ root: { background: 'linear-gradient(90deg,#1f7cff 0%,#0066ff 100%)', fontWeight: 600 } }}
-          onClick={handlePay}
-        >
-          Pay Now
-        </Button>
-        <Text fz={11} c="dimmed" ta="center">By proceeding you agree to our Terms & Refund Policy.</Text>
-      </Stack>
-    </Card>
-  );
 
   const summaryCard = (
     <Card withBorder radius="md" p="xl" style={{ flex: 1, minWidth: 300, background: 'linear-gradient(45deg, #e3f2fd, #f1f6fc)' }}>
@@ -141,7 +94,6 @@ export default function Payment() {
             </Text>
           </Group>
         </Stack>
-
         <Stack gap={10} mt="xl">
           <Group gap={8} align="flex-start">
             <ThemeIcon size={34} radius="md" variant="light" color="blue">
@@ -164,6 +116,44 @@ export default function Payment() {
     </Card>
   );
 
+  // Show a full-page loader while checking user status before redirecting
+  if (userLoading || !user) {
+    return <LoadingOverlay visible={true} zIndex={1000} overlayProps={{ radius: "sm", blur: 2 }} />;
+  }
+
+  const userInfoAndActionCard = (
+    <Card withBorder radius="md" p="xl" style={{ flex: 1, minWidth: 300, position: 'relative' }}>
+        <Stack gap="xl">
+            <Stack gap="md">
+                <Text fw={700} fz={20}>Your Details</Text>
+                <Stack gap={4}>
+                    <Text fz="xs" tt="uppercase" c="dimmed" fw={600}>Full Name</Text>
+                    <Text fw={500}>{user.name}</Text>
+                </Stack>
+                 <Stack gap={4}>
+                    <Text fz="xs" tt="uppercase" c="dimmed" fw={600}>Email</Text>
+                    <Text fw={500}>{user.email}</Text>
+                </Stack>
+            </Stack>
+
+            {error && <Text fz="sm" c="red">{error}</Text>}
+
+            <Button
+                size="lg"
+                radius="md"
+                fullWidth
+                loading={paymentProcessing}
+                rightSection={<IconArrowRight size={20} />}
+                styles={{ root: { background: 'linear-gradient(90deg,#1f7cff 0%,#0066ff 100%)', fontWeight: 600 } }}
+                onClick={handlePay}
+            >
+                Pay Now
+            </Button>
+            <Text fz={11} c="dimmed" ta="center">By proceeding you agree to our Terms & Refund Policy.</Text>
+        </Stack>
+    </Card>
+  );
+
   return (
     <>
       <Script id="razorpay-checkout-js" src="https://checkout.razorpay.com/v1/checkout.js" />
@@ -179,28 +169,25 @@ export default function Payment() {
           position: 'relative'
         }}
       >
-        <LoadingOverlay visible={loading} zIndex={40} overlayProps={{ bg: '#ffffffaa', blur: 2 }} />
+        <LoadingOverlay visible={paymentProcessing} zIndex={40} overlayProps={{ bg: '#ffffffaa', blur: 2 }} />
         <Stack gap={32}>
           <Stack gap={4}>
-            <Group gap={10}>
-              <Text fw={800} fz={30} style={{ letterSpacing: -0.8 }}>Secure Checkout</Text>
-            </Group>
+            <Text fw={800} fz={30} style={{ letterSpacing: -0.8 }}>Secure Checkout</Text>
             <Text fz="sm" c="dimmed">
               Enroll now to unlock live mentorship, adaptive practice, and the full mock stack instantly.
             </Text>
           </Stack>
-
-          {isMobile ? (
-            <Stack>
-              {summaryCard}
-              {formCard}
-            </Stack>
-          ) : (
-            <Group align="flex-start" gap={50} wrap="nowrap" justify="space-between">
-              {formCard}
-              {summaryCard}
-            </Group>
-          )}
+            {isMobile ? (
+              <Stack>
+                {summaryCard}
+                {userInfoAndActionCard}
+              </Stack>
+            ) : (
+              <Group align="flex-start" gap={50} wrap="nowrap" justify="space-between">
+                {userInfoAndActionCard}
+                {summaryCard}
+              </Group>
+            )}
         </Stack>
       </Card>
     </>

@@ -5,6 +5,7 @@ import { connect } from "@/lib/db";
 import Payment from "@/models/payment";
 import Course from "@/models/course"
 import User from "@/models/user";
+import { getInstamojoAccessToken } from "@/lib/insta_token";
 
 export async function POST(req: NextRequest) {
   await connect();
@@ -13,6 +14,10 @@ export async function POST(req: NextRequest) {
   let payload;
   try {
     payload = await req.json();
+    console.log("recived payload");
+    console.log(payload);
+    
+    
     if (!payload?.courseId || !payload?.userId) {
       return NextResponse.json({ success: false, error: "Missing courseId or userId." }, { status: 400 });
     }
@@ -26,6 +31,9 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ success: false, error: "Course not found." }, { status: 404 });
   }
 
+  console.log("course obj is",course);
+  
+
   // Step 3: Get user and validate existance
   const user = await User.findById(payload.userId);
   if (!user) {
@@ -33,13 +41,17 @@ export async function POST(req: NextRequest) {
   }
 
   const { name, email, phone = "" } = user;
-  const { amount } = course;
-
+  const { price } = course;
+  console.log("yha tk sb theek hai");
+  console.log(name, email,phone,price);
+  
+  
   // Step 4: Get Instamojo Access Token
-  let accessToken;
+  let access_token;
   try {
-    const authRes = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/instamojo/accesstoken`);
-    accessToken = authRes.data.access_token;
+  access_token = await getInstamojoAccessToken();
+  console.log("access token mil gya", access_token);
+    
   } catch (err: any) {
     console.error("Error fetching access token:", err.response?.data || err.message);
     return NextResponse.json({ success: false, error: "Failed to fetch Instamojo access token." }, { status: 502 });
@@ -49,9 +61,9 @@ export async function POST(req: NextRequest) {
   let paymentData;
   try {
     const paymentRes = await axios.post(
-      "https://test.instamojo.com/v2/payment_requests/",
+      "https://api.instamojo.com/v2/payment_requests/",
       {
-        amount,
+        amount: price,
         purpose: "Purchase request for CAT course",
         name,
         email,
@@ -60,13 +72,15 @@ export async function POST(req: NextRequest) {
       },
       {
         headers: {
-          Authorization: `Bearer ${accessToken}`,
+          Authorization: `Bearer ${access_token}`,
           "Content-Type": "application/json",
         },
       }
     );
     paymentData = paymentRes.data;
   } catch (err: any) {
+    console.log("yha dikkt aagyi");
+    
     console.error("Error creating payment request:", err.response?.data || err.message);
     return NextResponse.json({ success: false, error: "Failed to create Instamojo payment request." }, { status: 502 });
   }
@@ -76,7 +90,7 @@ export async function POST(req: NextRequest) {
     await Payment.create({
       courseId: payload.courseId,
       userId: payload.userId,
-      amount,
+      amount:price,
       instamojo_RequestId: paymentData.id,
       payload: paymentData,
     });
