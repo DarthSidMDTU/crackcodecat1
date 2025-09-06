@@ -13,7 +13,7 @@ const heroSlides = [
       name: "Abhishek Anand",
       title: "Lead Mentor",
       percentile: "95+ %ILE",
-      image: "/crackcode.png" // Using guy.png from public folder
+      image: "/crackcode.webp" // Using guy.webp from public folder
     },
     countdown: {
       days: 107,

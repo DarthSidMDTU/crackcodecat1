@@ -44,7 +44,7 @@ const courseSlides = [
       { text: "VARC EXPERT", color: "blue" },
       { text: "FAST TRACK", color: "grape" }
     ],
-    illustration: "/hero.jpg"
+    illustration: "/hero.webp"
   }
 ];
 

@@ -77,7 +77,7 @@ export function Navbar() {
                             <Burger opened={drawerOpened} onClick={toggleDrawer} size="sm" color="white" />
                         </Group>
                         <Anchor href="/" underline="never" style={{ display: 'flex', alignItems: 'center', gap: rem(8), lineHeight: 1 }}>
-                            <Image src="/company.png" alt="Company Logo" height={40} width={40} fit="contain" radius="md" />
+                            <Image src="/company.webp" alt="Company Logo" height={40} width={40} fit="contain" radius="md" />
                             <span style={{ fontWeight: 800, fontFamily: 'Montserrat, sans-serif', letterSpacing: '-0.5px', fontSize: rem(20), color: '#fff', whiteSpace: 'nowrap' }}>
                                 Crack Code CAT
                             </span>

@@ -43,22 +43,22 @@ const studentAchievers = [
   {
     name: "Ishita Mehra",
     score: "CAT(VARC) 99.45%ile",
-    avatar: "/1.jpg",
+    avatar: "/1.webp",
   },
   {
     name: "Rohan Gupta",
     score: "CAT(VARC) 99.11%ile",
-    avatar: "/2.jpg",
+    avatar: "/2.webp",
   },
   {
     name: "Uday Verma",
     score: "CAT(VARC) 98.76%ile",
-    avatar: "/3.jpg",
+    avatar: "/3.webp",
   },
   {
     name: "Kunal Singh",
     score: "CAT(VARC) 98.25%ile",
-    avatar: "/4.jpg",
+    avatar: "/4.webp",
   },
 ];
 

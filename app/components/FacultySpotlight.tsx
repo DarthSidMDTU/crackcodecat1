@@ -14,7 +14,7 @@ export function FacultySpotlight() {
           <Grid.Col span={{ base: 12, md: 6 }}>
             <Box style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
               <img
-                src="/crackcode.png"
+                src="/crackcode.webp"
                 alt="Abhishek Anand"
                 style={{
                   width: '100%',

@@ -3,10 +3,10 @@ import { Container, Title, Text, Box, Stack, Image, Group, Anchor } from "@manti
 
 export default function MeetYourMentor() {
             const scorecards = [
-                { year: "2017", file: "2017.png" },
-                { year: "2018", file: "2018.png" },
-                { year: "2019", file: "2019.png" },
-                { year: "2023", file: "2023.png" },
+                { year: "2017", file: "2017.webp" },
+                { year: "2018", file: "2018.webp" },
+                { year: "2019", file: "2019.webp" },
+                { year: "2023", file: "2023.webp" },
             ];
 
             return (

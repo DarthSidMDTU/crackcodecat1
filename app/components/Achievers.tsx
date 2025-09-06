@@ -6,9 +6,9 @@ type ScoreRow = { section: string; score: number | string; percentile: number | 
 const achiever = {
   name: 'Aashit Kumar Malik',
   percentile: 97.71,
-  photo: '/achiever.png',
+  photo: '/achiever.webp',
   year: 'CAT 2023',
-  scorecard: '/marksheet.png',
+  scorecard: '/marksheet.webp',
   scores: [
     { section: 'VARC', score: 74, percentile: 99.2 },
     { section: 'DILR', score: 62, percentile: 98.6 },
