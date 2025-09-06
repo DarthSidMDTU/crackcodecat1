@@ -8,6 +8,9 @@ import {
   Group,
   Text,
   Badge,
+  Flex,
+  Box,
+  SimpleGrid,
 } from "@mantine/core";
 import { IconArrowRight, IconCheck } from "@tabler/icons-react";
 import axios from "axios";
@@ -18,7 +21,7 @@ export function BookDemo() {
   const [email, setEmail] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
-  const [error, setError] = useState < string | null > (null);
+  const [error, setError] = useState<string | null>(null);
 
   const validate = () => {
     if (!name.trim()) return "Name is required";
@@ -41,7 +44,6 @@ export function BookDemo() {
     setSubmitting(true);
 
     try {
-      // NOTE: Replace "/api/consultation" with your actual Next.js API route.
       const res = await axios.post("/api/demo", { name, email, mobile });
       console.log("Success:", res.data);
       setSubmitted(true);
@@ -61,19 +63,30 @@ export function BookDemo() {
     <Card
       id="consultation"
       withBorder
-      radius="lg"
+      radius="lg" // single value – radius is not responsive
       shadow="sm"
-      p="xl"
-      style={{
-        maxWidth: 980,
-        margin: "80px auto",
-        background: "linear-gradient(135deg,#ffffff 0%,#f4f8ff 100%)",
-      }}
+      p={{ base: "md", sm: "lg", md: "xl" }} // responsive style prop – OK
+      w="100%"
+      maw={{ base: "100%", sm: 980 }} // responsive style prop – OK
+      mx="auto"
+      my={{ base: 12, sm: 32, md: 64 }} // responsive style prop – OK
+      style={{ background: "linear-gradient(135deg,#ffffff 0%,#f4f8ff 100%)" }}
     >
-      <Group align="stretch" gap={40} wrap="wrap" justify="space-between">
-        {/* Left Info Column */}
-        <Stack flex={1} gap={22} style={{ minWidth: 260, maxWidth: 360 }}>
-          <Stack gap={8}>
+      <Flex
+        align="stretch"
+        justify="space-between"
+        direction={{ base: "column", md: "row" }} // Flex supports responsive props
+        gap={{ base: 16, md: 40 }} // Flex gap can be responsive
+      >
+        {/* Left Info Column – hidden on small screens to reduce crowding */}
+        <Stack
+          flex={1}
+          w={{ base: "100%", md: 360 }}
+          style={{ minWidth: 0 }}
+          gap="md" // single value – Stack gap is not responsive
+          visibleFrom="md"
+        >
+          <Stack gap="xs">
             <Badge
               variant="light"
               color="blue"
@@ -82,30 +95,32 @@ export function BookDemo() {
                   background: "#EAF2FF",
                   color: "#0b66ff",
                   fontWeight: 600,
-                  alignSelf: 'flex-start'
+                  alignSelf: "flex-start",
                 },
               }}
             >
               FREE 1-ON-1 CALL
             </Badge>
+
             <Text
               fw={800}
-              fz={28}
-              style={{ letterSpacing: -0.8, lineHeight: 1.15 }}
+              fz={{ base: 22, md: 28 }}
+              style={{ letterSpacing: -0.8, lineHeight: 1.2 }}
             >
               Get Expert Guidance.
               <br />
               Build Your CAT Strategy.
             </Text>
+
             <Text fz="sm" c="dimmed" style={{ lineHeight: 1.5 }}>
-              Schedule a free 15-minute call to discuss your preparation, clear your doubts, and get a personalized roadmap from a CAT expert.
+              Schedule a free 15-minute call to discuss preparation, clear doubts, and get a personalized roadmap from a CAT expert.
             </Text>
           </Stack>
 
-          <Stack gap={10}>
+          <Stack gap="sm">
             {[
               "Personalized CAT preparation strategy",
-              "Clear your specific doubts with an expert",
+              "Clear specific doubts with an expert",
               "Guidance on section-wise approach",
               "Understand our unique mentorship program",
               "No-obligation, purely informational call",
@@ -132,17 +147,17 @@ export function BookDemo() {
             ))}
           </Stack>
 
-          <Text fz={11} c="dimmed" style={{ maxWidth: 300 }}>
-            No spam. No pressure. Just a helpful conversation to plan your next steps.
+          <Text fz={11} c="dimmed" style={{ maxWidth: 340 }}>
+            No spam. No pressure. Just a helpful conversation to plan next steps.
           </Text>
         </Stack>
 
         {/* Right Form Column */}
-        <form onSubmit={handleSubmit} style={{ flex: 1, minWidth: 300 }}>
-          <Stack gap={18}>
-            <Stack gap={4}>
-              <Group gap={10}>
-                <Text fw={800} fz={22} style={{ letterSpacing: -0.5 }}>
+        <Box component="form" onSubmit={handleSubmit} flex={1} w="100%">
+          <Stack gap="md">
+            <Stack gap="xs">
+              <Group gap={10} wrap="wrap">
+                <Text fw={800} fz={{ base: 20, sm: 22 }} style={{ letterSpacing: -0.5 }}>
                   Book Your Free Consultation
                 </Text>
                 {submitted && (
@@ -151,12 +166,13 @@ export function BookDemo() {
                   </Badge>
                 )}
               </Group>
-              <Text fz="sm" c="dimmed">
-                Limited slots available. Reserve your spot now.
+              <Text fz={{ base: "xs", sm: "sm" }} c="dimmed">
+                Limited slots available. Reserve a spot now.
               </Text>
             </Stack>
 
-            <Group grow align="flex-start">
+            {/* Inputs: stack on phones, 2 cols from sm up */}
+            <SimpleGrid cols={{ base: 1, sm: 2 }} spacing={{ base: "sm", sm: "md" }}>
               <TextInput
                 label="Name"
                 placeholder="Your full name"
@@ -164,21 +180,19 @@ export function BookDemo() {
                 onChange={(e) => setName(e.currentTarget.value)}
                 required
                 radius="md"
-                size="md"
+                size="sm" // size must be a string
               />
               <TextInput
                 label="WhatsApp Number"
                 placeholder="10 digit number"
                 value={mobile}
-                onChange={(e) =>
-                  setMobile(e.currentTarget.value.replace(/[^0-9]/g, ""))
-                }
+                onChange={(e) => setMobile(e.currentTarget.value.replace(/[^0-9]/g, ""))}
                 maxLength={10}
                 required
                 radius="md"
-                size="md"
+                size="sm" // size must be a string
               />
-            </Group>
+            </SimpleGrid>
 
             <TextInput
               label="Email"
@@ -187,7 +201,7 @@ export function BookDemo() {
               onChange={(e) => setEmail(e.currentTarget.value)}
               required
               radius="md"
-              size="md"
+              size="sm" // size must be a string
             />
 
             {error && (
@@ -199,14 +213,14 @@ export function BookDemo() {
             {!submitted && (
               <Button
                 type="submit"
-                size="md"
-                radius="md"
+                radius="md" // single value
+                size="md" // size must be a string
                 loading={submitting}
                 rightSection={<IconArrowRight size={18} />}
+                w={{ base: "100%", sm: "auto" }} // responsive style prop – OK
                 styles={{
                   root: {
-                    background:
-                      "linear-gradient(90deg,#1f7cff 0%,#0066ff 100%)",
+                    background: "linear-gradient(90deg,#1f7cff 0%,#0066ff 100%)",
                     fontWeight: 600,
                   },
                 }}
@@ -226,13 +240,13 @@ export function BookDemo() {
                 }}
               >
                 <Text fz="sm" fw={500} c="blue">
-                  Thanks, {name.split(" ")[0] || "there"}! Your call is booked. We'll reach out on WhatsApp shortly.
+                  Thanks, {name.split(" ") || "there"}! A WhatsApp message will follow shortly.
                 </Text>
               </Card>
             )}
           </Stack>
-        </form>
-      </Group>
+        </Box>
+      </Flex>
     </Card>
   );
 }

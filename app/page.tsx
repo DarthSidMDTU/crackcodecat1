@@ -12,23 +12,26 @@ import ScoreStrip from './components/ScoreStrip';
 import CrackCodeVARC from './components/CrackCodeVARC';
 import { Navbar } from './components/Navbar';
 import YouTubeEmbed from './components/Yotube';
-
-
+import VideoCaption from './components/VideoCaption';
 export default function Home() {
   return (
     <>
   
+
       <UnifiedCarousel />
-      <YouTubeEmbed videoId='XGmZFNG-qQQ'/>
+   
+
+      <YouTubeEmbed videoId='XGmZFNG-qQQ' />
+     <VideoCaption/>
       {/* <ScoreStrip/> */}
       <CourseOffering />
-      <CrackCodeVARC /> 
+      <CrackCodeVARC />
       <FacultySpotlight />
-  
- 
-  <Achievers />
-  <FAQ />
-     <BookDemo/>
+
+
+      <Achievers />
+      <FAQ />
+      <BookDemo />
 
       <Footer />
     </>
