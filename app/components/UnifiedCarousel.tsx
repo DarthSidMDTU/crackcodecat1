@@ -13,24 +13,22 @@ export function UnifiedCarousel() {
   const theme = useMantineTheme();
   const isMobile = useMediaQuery(`(max-width: ${theme.breakpoints.md})`);
 
-  // autoplay plugin
   const autoplay = useRef(
-    Autoplay({ delay: 3000, stopOnInteraction: false }) // 3s per slide
+    Autoplay({ delay: 3000, stopOnInteraction: false })
   );
 
   return (
     <Paper withBorder radius="md" shadow="sm" p="md">
       <Carousel
-        withIndicators
-        withControls={!isMobile}
-        controlSize={34}
-        styles={{ viewport: { overflow: "hidden" } }}
-        plugins={[autoplay.current]}
-        onMouseEnter={autoplay.current.stop}
-        onMouseLeave={autoplay.current.reset}
-        // ✅ Compatibility: Mantine v6 uses options, v7 uses loop
-        {...({ loop: true } as any)}
-      >
+  emblaOptions={{ loop: true, align: 'start' }}   // enable wrap-around
+  withIndicators
+  withControls={!isMobile}
+  controlSize={34}
+  styles={{ viewport: { overflow: 'hidden' } }}
+  plugins={[autoplay.current]}
+  onMouseEnter={autoplay.current.stop}
+  onMouseLeave={autoplay.current.reset}
+>
         <Carousel.Slide>
           <HeroCarousel />
         </Carousel.Slide>
