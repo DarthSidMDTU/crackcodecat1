@@ -2,6 +2,16 @@
 import { Box, Grid, Group, Stack, Text, Anchor, Divider } from "@mantine/core";
 
 export function Footer() {
+
+  const links = [
+
+    { label: 'Course Features', href: '#features' },
+    { label: 'Mentors', href: '#mentors' },
+    { label: 'Achievers', href: '#achievers' },
+    { label: 'FAQs', href: '#faqs' }
+
+  ];
+
   return (
     <Box
       component="footer"
@@ -41,8 +51,8 @@ export function Footer() {
             <Stack gap={8} align="flex-start">
               <Text fw={600} fz={14} tt="uppercase" c="rgba(255,255,255,0.9)" style={{ letterSpacing: 0.6 }}>Program</Text>
               <Stack gap={6}>
-                {['Course Overview', 'Mentors', 'Success Stories', 'Pricing', 'FAQs'].map((l) => (
-                  <Anchor key={l} href={`#${l.toLowerCase().replace(/ /g, '-')}`} c="rgba(255,255,255,0.8)" fz="sm" underline="never" style={{ fontWeight: 500 }}>{l}</Anchor>
+                {links.map((l,index) => (
+                  <Anchor key={index} href={`${l.href}`} c="rgba(255,255,255,0.8)" fz="sm" underline="never" style={{ fontWeight: 500 }}>{l.label}</Anchor>
                 ))}
               </Stack>
 

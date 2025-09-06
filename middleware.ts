@@ -8,7 +8,7 @@ export default async function middleware(req: NextRequest) {
   // Middleware must be async to use jwtVerify
   if (protectedPaths.some((p) => pathname.startsWith(p))) {
     const token = req.cookies.get("user")?.value;
-    console.log("token is ", token);
+    //console.log("token is ", token);
 
     if (!token) {
       return NextResponse.redirect(new URL("/auth/signin", req.url));

@@ -14,8 +14,8 @@ export async function POST(req: NextRequest) {
   let payload;
   try {
     payload = await req.json();
-    console.log("recived payload");
-    console.log(payload);
+    // console.log("recived payload");
+    // console.log(payload);
     
     
     if (!payload?.courseId || !payload?.userId) {
@@ -31,7 +31,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ success: false, error: "Course not found." }, { status: 404 });
   }
 
-  console.log("course obj is",course);
+  //console.log("course obj is",course);
   
 
   // Step 3: Get user and validate existance

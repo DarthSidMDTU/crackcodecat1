@@ -14,7 +14,7 @@ export async function GET(
     await connect();
 
     const { courseId } = await params;
-    console.log("courseId is", courseId);
+   // console.log("courseId is", courseId);
 
     if (!Types.ObjectId.isValid(courseId)) {
       return NextResponse.json(
