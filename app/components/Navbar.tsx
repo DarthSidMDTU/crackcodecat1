@@ -7,7 +7,8 @@ import {
     UnstyledButton 
 } from '@mantine/core';
 import { 
-    IconBrandWhatsapp, IconPhoneCall, IconUser, IconLogout, IconChevronDown 
+    IconBrandWhatsapp, IconPhoneCall, IconUser, IconLogout, IconChevronDown, 
+    IconBrandYoutube // 1. Import the YouTube icon
 } from '@tabler/icons-react';
 import { useDisclosure } from '@mantine/hooks';
 import { useUser } from '@/hooks/getuser';
@@ -42,7 +43,6 @@ export function Navbar() {
         const id = href.slice(1);
         const target = document.getElementById(id);
         if (target) {
-            // FIX 1: Adjusted the header offset to match the consistent header height.
             const headerOffset = 74; 
             const elementPosition = target.getBoundingClientRect().top;
             const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
@@ -84,7 +84,6 @@ export function Navbar() {
                         </Anchor>
                     </Group>
                     
-                    {/* FIX 2: Moved the homepage links inside the main Flex container for a consistent, single-row layout. */}
                     {isHomePage && (
                         <Group gap="md" visibleFrom="md">
                             {homePageLinks.map((link) => (
@@ -108,6 +107,10 @@ export function Navbar() {
                             </ActionIcon>
                             <ActionIcon component="a" href="tel:+918744003503" color="blue" variant="light" size="lg">
                                 <IconPhoneCall size={24} />
+                            </ActionIcon>
+                            {/* 2. Add the YouTube icon for the desktop view */}
+                            <ActionIcon component="a" href="https://youtube.com/@yourchannel" target="_blank" rel="noopener noreferrer" color="red" variant="light" size="lg">
+                                <IconBrandYoutube size={24} />
                             </ActionIcon>
                         </Group>
                         <Flex align="center" gap="sm">
@@ -134,8 +137,6 @@ export function Navbar() {
                         </Flex>
                     </Group>
                 </Flex>
-                
-                {/* The old, separate Flex container for links has been removed from here. */}
             </Container>
 
             <Drawer opened={drawerOpened} onClose={closeDrawer} padding="md" size={280} position="left" withCloseButton>
@@ -155,6 +156,8 @@ export function Navbar() {
                               <Group gap={8}>
                                   <ActionIcon component="a" href="https://wa.me/8744003503" target="_blank" rel="noopener noreferrer" color="green" variant="light"><IconBrandWhatsapp size={20} /></ActionIcon>
                                   <ActionIcon component="a" href="tel:8744003503" color="blue" variant="light"><IconPhoneCall size={20} /></ActionIcon>
+                                  {/* 3. Add the YouTube icon for the mobile drawer view */}
+                                  <ActionIcon component="a" href="https://youtube.com/@yourchannel" target="_blank" rel="noopener noreferrer" color="red" variant="light"><IconBrandYoutube size={20} /></ActionIcon>
                               </Group>
                                 {loadingUser ? null : !user && (
                                     <Stack mt="md">
