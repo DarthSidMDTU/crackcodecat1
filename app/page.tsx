@@ -17,7 +17,7 @@ import YouTubeEmbed from './components/Yotube';
 export default function Home() {
   return (
     <>
-  <Navbar/>
+  
       <UnifiedCarousel />
       <YouTubeEmbed videoId='XGmZFNG-qQQ'/>
       {/* <ScoreStrip/> */}

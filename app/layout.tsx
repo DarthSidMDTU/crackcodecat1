@@ -6,6 +6,7 @@ import '@mantine/carousel/styles.css';
 
 import { ColorSchemeScript, MantineProvider, mantineHtmlProps } from '@mantine/core';
 import { Montserrat, Inter } from 'next/font/google';
+import { Navbar } from './components/Navbar';
 
 export const metadata = {
   title: 'CAT Crack - Crack the Code in 120 Days',
@@ -29,7 +30,7 @@ export default function RootLayout({
       </head>
   <body className={`${fontHeading.variable} ${fontBody.variable}`}>
         <MantineProvider>
-          
+          <Navbar/>
           {children}
         </MantineProvider>
       </body>

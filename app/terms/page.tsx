@@ -1,80 +1,140 @@
-// /app/terms/page.js
+// src/app/terms-and-conditions/page.tsx or src/pages/terms-and-conditions.tsx
+"use client"; // This directive is necessary for App Router components that use Mantine hooks.
 
-export default function TermsPage() {
+import { Container, Title, Text, Stack, List } from "@mantine/core";
+
+export default function TermsAndConditionsPage() {
   return (
-    <main className="max-w-2xl mx-auto py-8 px-4">
-      <h1 className="text-3xl font-bold mb-6">Terms & Conditions</h1>
+    <Container size="md" py={60}>
+      <Title
+        order={1}
+        mb="xl"
+        style={{
+          fontSize: "clamp(2rem, 5vw, 3.2rem)",
+          fontWeight: 800,
+          textAlign: "center",
+        }}
+      >
+        Terms and Conditions
+      </Title>
 
-      <section className="mb-8">
-        <h2 className="text-xl font-semibold mb-2">General</h2>
-        <p>
-          By accessing or using this website ("Website"), operated by [Your Company Name], you agree to be bound by these Terms and Conditions.
-          If you do not agree with any part of these terms, you must not use the Website.
-        </p>
-      </section>
+      <Stack gap="xl">
+        <Text>
+          This document outlines the terms and conditions for the live CAT VARC
+          course delivered through WhatsApp groups. By purchasing this course, you agree to be
+          bound by these terms.
+        </Text>
 
-      <section className="mb-8">
-        <h2 className="text-xl font-semibold mb-2">Service Description</h2>
-        <p>
-          The Website offers online courses and related materials for students preparing for various exams. Access to some content is free, while full access requires a paid subscription.
-        </p>
-      </section>
+        <section>
+          <Title order={2} size="h3" mb="sm">
+            1. Course Access and Communication
+          </Title>
+          <List withPadding>
+            <List.Item>
+              <Text fw={600}>Access:</Text> Upon successful payment, you will be added to the
+              official WhatsApp group(s) for the course. This is the primary channel for all
+              live classes, discussions, and material sharing.
+            </List.Item>
+            <List.Item>
+              <Text fw={600}>Live Sessions:</Text> The course is delivered through live
+              sessions and discussions within the designated WhatsApp groups. It is your
+              responsibility to be present for these sessions or to review the content
+              shared later if you miss a live session.
+            </List.Item>
+            <List.Item>
+              <Text fw={600}>Group Rules:</Text> To ensure a productive environment, you must
+              adhere to all group rules, including respectful communication and avoiding
+              spam. Violation of these rules may result in your removal from the group
+              without a refund.
+            </List.Item>
+            <List.Item>
+              <Text fw={600}>Single User License:</Text> Your purchase grants you a
+              single-user license. The course content, including live sessions, messages,
+              documents, and practice tests, is for your personal use only. Sharing,
+              distributing, or inviting others to the group is strictly prohibited.
+            </List.Item>
+          </List>
+        </section>
 
-      <section className="mb-8">
-        <h2 className="text-xl font-semibold mb-2">User Accounts</h2>
-        <p>
-          Users must be 18 years or older to register and are responsible for keeping account credentials confidential.
-          Providing false information or unauthorized account use may result in termination.
-        </p>
-      </section>
+        <section>
+          <Title order={2} size="h3" mb="sm">
+            2. Payments and Refunds
+          </Title>
+          <List withPadding>
+            <List.Item>
+              <Text fw={600}>Pricing:</Text> All prices are listed in INR. We
+              reserve the right to change prices at any time, but price changes will not
+              affect purchases already made.
+            </List.Item>
+            <List.Item>
+              <Text fw={600}>Payment:</Text> All payments must be made through our designated
+              payment gateway. Your access to the course groups will be granted only after
+              we receive confirmation of a successful payment.
+            </List.Item>
+            <List.Item>
+              <Text fw={600}>Refund Policy:</Text> Due to the live, immediate nature of the
+              course and group access, all sales are final. We do not offer refunds once you
+              have been added to the WhatsApp group.
+            </List.Item>
+          </List>
+        </section>
 
-      <section className="mb-8">
-        <h2 className="text-xl font-semibold mb-2">Payments & Refunds</h2>
-        <p>
-          All payments must be made using approved methods. Fees are non-refundable. Prices may change at any time without notice.
-        </p>
-      </section>
+        <section>
+          <Title order={2} size="h3" mb="sm">
+            3. Intellectual Property
+          </Title>
+          <List withPadding>
+            <List.Item>
+              <Text fw={600}>Ownership:</Text> All course content, including live
+              instructions, shared messages, videos, and exercises, is the intellectual
+              property of CrackCodeCat and is protected by copyright law.
+            </List.Item>
+            <List.Item>
+              <Text fw={600}>Prohibitions:</Text> You may not reproduce, modify, distribute,
+              or create derivative works from the course content without our explicit
+              written permission.
+            </List.Item>
+          </List>
+        </section>
 
-      <section className="mb-8">
-        <h2 className="text-xl font-semibold mb-2">Intellectual Property</h2>
-        <p>
-          All materials, content, and intellectual property on the Website belong to [Your Company Name]. You may not reproduce, distribute, or commercialize any content without written consent.
-        </p>
-      </section>
+        <section>
+          <Title order={2} size="h3" mb="sm">
+            4. Disclaimers
+          </Title>
+          <List withPadding>
+            <List.Item>
+              <Text fw={600}>No Guarantees:</Text> We do not guarantee a specific score or
+              outcome on the CAT exam. Your results depend on various factors, including your
+              effort, prior knowledge, and personal study habits. The course is designed to
+              be a tool to assist you in your preparation, not a guarantee of success.
+            </List.Item>
+            <List.Item>
+              <Text fw={600}>Technical Issues:</Text> While we will make every effort to
+              ensure a smooth experience, we are not responsible for technical issues related
+              to your personal device, internet connection, or the WhatsApp platform itself.
+            </List.Item>
+          </List>
+        </section>
 
-      <section className="mb-8">
-        <h2 className="text-xl font-semibold mb-2">Code of Conduct</h2>
-        <p>
-          Users agree not to use the Website for unlawful purposes or disrupt its operation. Any misuse may result in account suspension or legal action.
-        </p>
-      </section>
+      
 
-      <section className="mb-8">
-        <h2 className="text-xl font-semibold mb-2">Disclaimer</h2>
-        <p>
-          The Website is provided “as is” without warranties. We do not guarantee results or uninterrupted access.
-        </p>
-      </section>
+        <section>
+          <Title order={2} size="h3" mb="sm">
+            5. Changes to Terms
+          </Title>
+          <Text>
+            We reserve the right to modify these terms and conditions at any time. We will
+            notify you of any significant changes via a notice in the WhatsApp group or
+            through a personal message. Your continued participation in the course after
+            such changes constitutes your acceptance of the new terms.
+          </Text>
+        </section>
 
-      <section className="mb-8">
-        <h2 className="text-xl font-semibold mb-2">Limitation of Liability</h2>
-        <p>
-          We are not liable for any indirect or consequential damages arising from use of the Website.
-        </p>
-      </section>
-
-      <section className="mb-8">
-        <h2 className="text-xl font-semibold mb-2">Jurisdiction</h2>
-        <p>
-          These Terms are governed by and construed in accordance with the laws of [Your State/Country]. All disputes shall be subject to the jurisdiction of the courts located at [Your City].
-        </p>
-      </section>
-
-      <section>
-        <p>
-          For questions regarding these Terms, contact us at [your email].
-        </p>
-      </section>
-    </main>
+        <Text mt="lg">
+          By completing your purchase and joining the WhatsApp group, you acknowledge that you
+          have read, understood, and agree to these Terms and Conditions.
+        </Text>
+      </Stack>
+    </Container>
   );
 }

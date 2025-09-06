@@ -1,10 +1,19 @@
 "use client";
-import { useState } from 'react';
+import { useState, useEffect } from 'react'; // Import useEffect
 import {
   Box, Container, Paper, Title, Text, TextInput, Button, Group, Anchor, Divider, Stack, Badge, Checkbox, Alert, PasswordInput
 } from '@mantine/core';
-import { IconMail, IconUser, IconBolt, IconShieldCheck, IconCheck, IconLock } from '@tabler/icons-react';
+// Import IconAlertCircle for the error message
+import { IconMail, IconUser, IconBolt, IconShieldCheck, IconCheck, IconLock, IconAlertCircle } from '@tabler/icons-react';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
+
+// Helper function to format seconds into MM:SS
+const formatTime = (seconds: number) => {
+  const minutes = Math.floor(seconds / 60);
+  const remainingSeconds = seconds % 60;
+  return `${String(minutes).padStart(2, '0')}:${String(remainingSeconds).padStart(2, '0')}`;
+};
 
 export default function SignUpPage() {
   const router = useRouter();
@@ -17,6 +26,24 @@ export default function SignUpPage() {
   const [error, setError] = useState<string | null>(null);
   const [otpSent, setOtpSent] = useState(false);
   const [otp, setOtp] = useState('');
+  const [timer, setTimer] = useState(300); // 5 minutes in seconds
+
+  // Countdown timer logic
+  useEffect(() => {
+    let interval: NodeJS.Timeout;
+    if (otpSent && timer > 0) {
+      interval = setInterval(() => {
+        setTimer((prevTimer) => prevTimer - 1);
+      }, 1000);
+    } else if (timer === 0) {
+      setOtpSent(false); // Reset the OTP state
+      setError("OTP has expired. Please request a new one.");
+      setMessage(null);
+    }
+    // Cleanup interval on component unmount or when dependencies change
+    return () => clearInterval(interval);
+  }, [otpSent, timer]);
+
 
   const canRequestOtp =
     name.trim().length > 1 &&
@@ -45,6 +72,7 @@ export default function SignUpPage() {
         return;
       }
       setOtpSent(true);
+      setTimer(300); // Reset timer to 5 minutes on new OTP request
       setMessage("OTP sent to your email.");
     } catch (err) {
       setError("Server error");
@@ -137,7 +165,7 @@ export default function SignUpPage() {
                 </Alert>
               )}
               {error && (
-                <Alert color="red" variant="light" title="Error" icon={<IconCheck size={18} />}>
+                <Alert color="red" variant="light" title="Error" icon={<IconAlertCircle size={18} />}>
                   {error}
                 </Alert>
               )}
@@ -205,7 +233,7 @@ export default function SignUpPage() {
                     {submitting ? "Sending OTP..." : "Send OTP"}
                   </Button>
                   <Checkbox
-                    label={<Text size="xs" c="var(--mantine-color-gray-4)">I agree to Terms & Privacy Policy</Text>}
+                    label={<Text size="xs" c="var(--mantine-color-gray-4)">I agree to <Link href={"/terms"} style={{ color: 'white' }}>Terms & Conditions</Link></Text>}
                     checked={agree}
                     onChange={e => setAgree(e.currentTarget.checked)}
                     styles={{ label: { cursor: 'pointer' } }}
@@ -224,12 +252,16 @@ export default function SignUpPage() {
                     radius="md"
                     required
                   />
+                  {/* Timer Display */}
+                  <Text size="xs" c="dimmed" ta="right" mt={-10}>
+                    OTP expires in: <strong>{formatTime(timer)}</strong>
+                  </Text>
                   <Group grow>
                     <Button
                       variant="subtle"
                       color="gray"
                       disabled={submitting}
-                      onClick={() => { setOtp(''); setOtpSent(false); setMessage(null); }}
+                      onClick={() => { setOtp(''); setOtpSent(false); setMessage(null); setError(null); }}
                     >
                       Change Email
                     </Button>
@@ -263,7 +295,7 @@ export default function SignUpPage() {
           </Paper>
 
           <Text size="xs" c="var(--mantine-color-gray-4)" ta="center">
-            Secure signup – email OTP required.
+            Secure signup - email OTP required.
           </Text>
         </Stack>
       </Container>
