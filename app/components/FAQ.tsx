@@ -46,7 +46,7 @@ const FAQ_ITEMS: FAQItem[] = [
     id: "q3",
     question: 'What is your signature "Math Problem Option" technique?',
     answer:
-      "Our signature technique treats VARC questions like mathematical problems, using systematic elimination methods to arrive at correct answers with high accuracy. This logic-driven approach removes guesswork and provides a reliable framework for consistent scoring.",
+      "With our methodologies, you’ll be able to differentiate VARC options just like Math options—so even close choices won’t confuse you.",
   },
   {
     id: "q4",
@@ -96,7 +96,7 @@ const COMPARISON_DATA: ComparisonRow[] = [
   {
     aspect: "Teaching Style",
     traditional: "Generic batch teaching",
-    crackcode: "Personalized error analysis",
+    crackcode: "Specialised VARC training",
   },
   {
     aspect: "Resource Philosophy",
