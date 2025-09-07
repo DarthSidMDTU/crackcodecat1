@@ -10,7 +10,6 @@ export interface IPayment extends Document {
   status: "Pending" | "Sucess" | "Failed";
   createdAt: Date;
   updatedAt: Date;
-  payload : Object;
 }
 
 const PaymentSchema = new Schema<IPayment>(
@@ -43,8 +42,7 @@ const PaymentSchema = new Schema<IPayment>(
       type: String,
       enum: ["Pending", "Success", "Failed"],
       default: "Pending",
-    },
-    payload : { type : Object}
+    }
   },
   { timestamps: true }
 );

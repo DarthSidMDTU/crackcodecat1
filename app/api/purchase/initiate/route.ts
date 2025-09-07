@@ -68,7 +68,10 @@ export async function POST(req: NextRequest) {
         name,
         email,
         phone,
-        redirect_url: `${process.env.NEXT_PUBLIC_BASE_URL}/profile`, // change as needed
+        redirect_url: `${process.env.NEXT_PUBLIC_BASE_URL}/profile`, // change as needed,
+        webhook : `${process.env.NEXT_PUBLIC_BASE_URL}/purchase/webhook`,
+        allow_repeated_payments : false,
+        send_email : true
       },
       {
         headers: {
@@ -92,7 +95,6 @@ export async function POST(req: NextRequest) {
       userId: payload.userId,
       amount:price,
       instamojo_RequestId: paymentData.id,
-      payload: paymentData,
     });
   } catch (err: any) {
     console.error("Error saving payment:", err.response?.data || err.message);
