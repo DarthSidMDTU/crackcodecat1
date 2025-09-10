@@ -81,7 +81,7 @@ export default function Payment() {
           const intervalId = setInterval(async () => {
             try {
               // Poll your backend to verify payment status using paymentId
-              const res = await axios.post("/purchase/verify", {
+              const res = await axios.post("/api/purchase/verify", {
                 payment_id,
                 payment_request_id
               });
@@ -89,7 +89,7 @@ export default function Payment() {
               if (res.status === 200 && res.data.status === "success") {
                 clearInterval(intervalId); // Stop polling on success
                 setPaymentProcessing(false);
-                router.push("/dashboard"); // Redirect to dashboard
+                router.push("/success"); // Redirect to dashboard
               }
             } catch (error) {
               console.error("Error verifying payment:", error);
