@@ -21,7 +21,7 @@ export default function Home() {
       <UnifiedCarousel />
    
 
-      <YouTubeEmbed videoId='XGmZFNG-qQQ' />
+      <YouTubeEmbed videoId='DitXn2FGw1w' />
      <VideoCaption/>
       {/* <ScoreStrip/> */}
       <CourseOffering />
