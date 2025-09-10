@@ -40,7 +40,7 @@ export function Footer() {
               </Text>
 
               <Group gap={10} mt={6}>
-                <Anchor href="mailto:crackcodecatclasses@gmail.com" c="rgba(255,255,255,0.9)" underline="hover">crackcodecatclasses@gmail.com</Anchor>
+                <Anchor href="mailto:info@crackcodecat.in" c="rgba(255,255,255,0.9)" underline="hover">info@crackcodecat.in</Anchor>
                 <Text c="rgba(255,255,255,0.35)">•</Text>
                 <Anchor href="tel:+918744003503" c="rgba(255,255,255,0.9)" underline="hover">+91 8744003503</Anchor>
               </Group>
