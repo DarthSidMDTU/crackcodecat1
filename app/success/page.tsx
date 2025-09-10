@@ -43,7 +43,7 @@ export default function SuccessPage() {
             <Stack gap="sm">
                 <Title
                   order={1}
-                  size={{ base: 36, md: 48 }}
+                  
                   fw={900}
                   style={{ color: '#fff', letterSpacing: -1 }}
                 >
