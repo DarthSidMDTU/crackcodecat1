@@ -65,7 +65,7 @@ export async function POST(req: NextRequest) {
       {
         amount: price,
         purpose: "Purchase request for CAT course",
-        name,
+        buyer_name:name,
         email,
         phone,
         redirect_url: `${process.env.NEXT_PUBLIC_BASE_URL}/profile`, // change as needed,
