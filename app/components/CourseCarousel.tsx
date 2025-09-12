@@ -1,8 +1,9 @@
 "use client";
-import { useState, useEffect } from 'react';
+
 import { Paper, Text, Title, Button, Group, Container, Grid, Badge, Stack, List, ThemeIcon, useMantineTheme } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 import { IconCheck, IconChevronLeft, IconChevronRight } from '@tabler/icons-react';
+import Image from 'next/image';
 
 const courseSlides = [
   {
@@ -37,7 +38,6 @@ const courseSlides = [
     ctaButtons: [
 
       { text: "Book Free Trial", variant: "filled" }
-
    
     ],
     rightBadges: [
@@ -49,83 +49,17 @@ const courseSlides = [
 ];
 
 export function CourseCarousel() {
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+  
   const theme = useMantineTheme();
   const isMobile = useMediaQuery(`(max-width: ${theme.breakpoints.md})`);
 
-  const nextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % courseSlides.length);
-  };
-
-  const prevSlide = () => {
-    setCurrentSlide((prev) => (prev - 1 + courseSlides.length) % courseSlides.length);
-    setIsAutoPlaying(false);
-  };
-
-  const handleNextClick = () => {
-    nextSlide();
-    setIsAutoPlaying(false);
-  };
-
-  // Auto-scroll effect (if multiple slides)
-  useEffect(() => {
-    if (!isAutoPlaying || courseSlides.length <= 1) return;
-    
-    const interval = setInterval(() => {
-      nextSlide();
-    }, 5000); // Change slide every 5 seconds
-
-    return () => clearInterval(interval);
-  }, [isAutoPlaying]);
-
-  const slide = courseSlides[currentSlide];
+  
+  const slide = courseSlides[0];
 
   return (
     <Container size="xl" py={isMobile ? 16 : 30}>
       <div style={{ position: 'relative' }}>
         {/* Navigation arrows for multiple slides */}
-  {courseSlides.length > 1 && !isMobile && (
-          <>
-            <Button
-              variant="white"
-              size="sm"
-              onClick={prevSlide}
-              style={{
-                position: 'absolute',
-                left: 20,
-                top: '50%',
-                transform: 'translateY(-50%)',
-                zIndex: 10,
-                borderRadius: '50%',
-                width: 40,
-                height: 40,
-                padding: 0
-              }}
-            >
-              <IconChevronLeft size={18} />
-            </Button>
-
-            <Button
-              variant="white"
-              size="sm"
-              onClick={handleNextClick}
-              style={{
-                position: 'absolute',
-                right: 20,
-                top: '50%',
-                transform: 'translateY(-50%)',
-                zIndex: 10,
-                borderRadius: '50%',
-                width: 40,
-                height: 40,
-                padding: 0
-              }}
-            >
-              <IconChevronRight size={18} />
-            </Button>
-          </>
-        )}
 
   <Grid gutter={isMobile ? 24 : 50} align="center">
           {/* Left Content */}
@@ -322,28 +256,28 @@ export function CourseCarousel() {
                 </div>
               </Paper>
 
-              {/* NO IMAGE ON MOBILE - Desktop only */}
-              <div style={{
-                padding: '40px 20px',
-                minHeight: '400px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                position: 'relative'
-              }}>
-                {/* Desktop illustration */}
-                <img
-                  src={slide.illustration}
-                  alt={`${slide.title} illustration`}
-                  loading="lazy"
-                  style={{
-                    maxWidth: '100%',
-                    maxHeight: '100%',
-                    objectFit: 'contain',
-                    borderRadius: 12
-                  }}
-                />
-              </div>
+            
+<div
+  style={{
+    padding: "40px 20px",
+    minHeight: "400px",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    position: "relative", // required for <Image fill />
+  }}
+>
+  <Image
+    src={slide.illustration}
+    alt={`${slide.title} illustration`}
+    fill
+    loading="lazy"
+    style={{
+      objectFit: "contain",
+      borderRadius: 12,
+    }}
+  />
+</div>
             </div>
           </Grid.Col>
         </Grid>

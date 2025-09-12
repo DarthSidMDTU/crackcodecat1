@@ -28,6 +28,8 @@ export function UnifiedCarousel() {
   plugins={[autoplay.current]}
   onMouseEnter={autoplay.current.stop}
   onMouseLeave={autoplay.current.reset}
+  
+  
 >
         <Carousel.Slide>
           <HeroCarousel />

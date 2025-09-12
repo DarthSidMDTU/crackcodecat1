@@ -1,6 +1,7 @@
 "use client";
 import { Box, Container, Title, Text, Grid, Paper, SimpleGrid, Group, Stack, ThemeIcon } from '@mantine/core';
 import { IconAward, IconSchool, IconTimeline, IconBriefcase } from '@tabler/icons-react';
+import Image from 'next/image';
 
 export function FacultySpotlight() {
   return (
@@ -13,7 +14,7 @@ export function FacultySpotlight() {
         <Grid gutter={{ base: 24, md: 40 }} align="center">
           <Grid.Col span={{ base: 12, md: 6 }}>
             <Box style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-              <img
+              <Image
                 src="/crackcode.webp"
                 alt="Abhishek Anand"
                 style={{
@@ -24,6 +25,8 @@ export function FacultySpotlight() {
                   display: 'block',
                   borderRadius: 16
                 }}
+                width={50}
+                height={50}
               />
             </Box>
           </Grid.Col>

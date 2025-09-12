@@ -64,7 +64,7 @@ export function Achievers() {
                   background: 'linear-gradient(180deg, rgba(11,102,255,0.10), rgba(11,102,255,0.02))',
                   border: '1px solid rgba(11,102,255,0.18)'
                 }}>
-                  <Image src={achiever.photo} alt={achiever.name} radius="md" h={260} w={220} fit="cover" style={{ boxShadow: '0 14px 30px -14px rgba(11,102,255,0.45)', background: '#fff' }} />
+                  <Image src={achiever.photo} alt={achiever.name} radius="md" height={260} width={220} fit="cover" style={{ boxShadow: '0 14px 30px -14px rgba(11,102,255,0.45)', background: '#fff' }} />
                 </Box>
               </Box>
             </Grid.Col>
@@ -97,6 +97,7 @@ export function Achievers() {
                 alt={`${achiever.name} scorecard`}
                 radius="md"
                 fit="contain"
+                width={50}
                 style={{
                   display: 'block',
                   height: 'auto',

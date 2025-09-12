@@ -69,7 +69,7 @@ export async function POST(req: NextRequest) {
         email,
         buyer_phone:phone,
         redirect_url: `${process.env.NEXT_PUBLIC_BASE_URL}/success`, // change as needed,
-        webhook : `${process.env.NEXT_PUBLIC_BASE_URL}/api/purchase/webhook`,
+        webhook : `${process.env.NEXT_PUBLIC_BASE_URL}/api/purchase/webhook/`,
         allow_repeated_payments : false,
         send_email : true
       },

@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { Container, Grid, Title, Text, Button, Group, Badge, Stack, Box, useMantineTheme } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 import { IconCheck, IconChevronLeft, IconChevronRight } from '@tabler/icons-react';
+import Image from 'next/image';
 
 const heroSlides = [
   {
@@ -35,69 +36,17 @@ const heroSlides = [
 ];
 
 export function HeroCarousel() {
-  const [currentSlide, setCurrentSlide] = useState(0);
+  
   const theme = useMantineTheme();
   const isMobile = useMediaQuery(`(max-width: ${theme.breakpoints.md})`);
 
-  const nextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
-  };
-
-  const prevSlide = () => {
-    setCurrentSlide((prev) => (prev - 1 + heroSlides.length) % heroSlides.length);
-  };
-
-
-  const slide = heroSlides[currentSlide];
+  const slide = heroSlides[0];
 
   return (
     <Box mt={{ base: 20, sm: 19, md: -64 }} id='#courses'>
       <Container size="xl" py={0}>
       <div style={{ position: 'relative' }}>
   {/* Navigation arrows for multiple slides (desktop only) */}
-  {heroSlides.length > 1 && !isMobile && (
-          <>
-            <Button
-              variant="white"
-              size="sm"
-              onClick={prevSlide}
-              style={{
-                position: 'absolute',
-                left: -60,
-                top: '50%',
-                transform: 'translateY(-50%)',
-                zIndex: 10,
-                borderRadius: '50%',
-                width: 40,
-                height: 40,
-                padding: 0,
-                boxShadow: '0 2px 10px rgba(0,0,0,0.1)'
-              }}
-            >
-              <IconChevronLeft size={18} />
-            </Button>
-
-            <Button
-              variant="white"
-              size="sm"
-              onClick={nextSlide}
-              style={{
-                position: 'absolute',
-                right: -60,
-                top: '50%',
-                transform: 'translateY(-50%)',
-                zIndex: 10,
-                borderRadius: '50%',
-                width: 40,
-                height: 40,
-                padding: 0,
-                boxShadow: '0 2px 10px rgba(0,0,0,0.1)'
-              }}
-            >
-              <IconChevronRight size={18} />
-            </Button>
-          </>
-        )}
 
   <Grid gutter={isMobile ? 20 : 40} align="center">
           {/* Content - left on desktop */}
@@ -260,11 +209,18 @@ export function HeroCarousel() {
   <Box hiddenFrom="md" mt={{ base: -40, sm: -6 }}>
     <div style={{ textAlign: 'center' }}>
                   <div style={{ display: 'inline-flex', flexDirection: 'column', alignItems: 'center', gap: 8 }}>
-                    <img
-                      src={slide.mentor.image}
-                      alt={slide.mentor.name}
-          style={{ height: '420px', width: 'auto', objectFit: 'contain' }}
-                    />
+                   <Image
+  src={slide.mentor.image}
+  alt={slide.mentor.name}
+  height={420}         // fixed height
+  width={0}            // allow auto-calculated width
+  sizes="auto"         // responsive sizing
+  style={{
+    height: "420px",
+    width: "auto",
+    objectFit: "contain",
+  }}
+/>
                     <Title order={4} size="h4">{slide.mentor.name}</Title>
                     <Group justify="center" gap={8}>
                       <Badge variant="light" color="blue" size="sm">
