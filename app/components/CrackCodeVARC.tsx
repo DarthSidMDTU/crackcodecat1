@@ -12,10 +12,15 @@ import {
   Divider,
   Badge,
   rem,
+  Button
 } from "@mantine/core";
 import { IconBolt, IconCheck, IconX, IconBook2, IconTargetArrow } from "@tabler/icons-react";
-
+import { useMediaQuery } from "@mantine/hooks";
+import { useMantineTheme } from "@mantine/core";
 export default function CrackCodeVARC() {
+   const theme = useMantineTheme();
+  // This will be 'true' on screens smaller than the 'sm' breakpoint, and 'false' otherwise
+  const isMobile = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`);
   return (
     <Box
       py={56}
@@ -45,7 +50,7 @@ export default function CrackCodeVARC() {
             <IconBolt size={32} />
           </ThemeIcon>
           <Stack gap={2}>
-            <Text size="lg" fw={700} c="indigo.7">
+            <Text size="lg" fw={700} c="indigo.9">
               🚀 STOP PREPARING, START CRACKING!
             </Text>
             <Text size="md" c="gray.7">
@@ -106,7 +111,7 @@ export default function CrackCodeVARC() {
         </Grid.Col>
       </Grid>
 
-      <Divider my="xl" label={<Text c="indigo.6" fw={700}>Who is this for?</Text>} labelPosition="center" />
+      <Divider my="xl" label={<Text c="indigo.9" fw={700}>Who is this for?</Text>} labelPosition="center" />
 
       {/* Who is this for */}
       <Grid gutter={36}>
@@ -124,10 +129,10 @@ export default function CrackCodeVARC() {
                 </ThemeIcon>
               }
             >
-              <List.Item>You’re stuck below 90 percentile despite efforts</List.Item>
-              <List.Item>You’re a working professional with limited time</List.Item>
+              <List.Item>You're stuck below 90 percentile despite efforts</List.Item>
+              <List.Item>You're a working professional with limited time</List.Item>
               <List.Item>You want proven strategies over generic coaching</List.Item>
-              <List.Item>You’re ready to think differently about VARC</List.Item>
+              <List.Item>You're ready to think differently about VARC</List.Item>
             </List>
           </Paper>
         </Grid.Col>
@@ -147,12 +152,35 @@ export default function CrackCodeVARC() {
             >
               <List.Item>You prefer slow 12-month prep cycles</List.Item>
               <List.Item>You expect spoon-feeding</List.Item>
-              <List.Item>You’re not serious about 95+ percentile</List.Item>
+              <List.Item>You're not serious about 95+ percentile</List.Item>
               <List.Item>You reject strategy-based learning</List.Item>
             </List>
           </Paper>
         </Grid.Col>
       </Grid>
+
+    <Stack 
+      align="center" 
+      mt={{ base: 32, sm: 48 }}
+      w="100%"
+    >
+      <Button
+        component="a"
+        href="/payment"
+        // --- THE FIX ---
+        // Use the hook's return value to conditionally set the size
+        size={isMobile ? 'md' : 'lg'} 
+        w={{ base: '100%', sm: 'auto' }} // This part is correct and can stay
+        radius="xl"
+        variant="gradient"
+        gradient={{ from: "#4f46e5", to: "#818cf8" }}
+        leftSection={<IconTargetArrow size={20} />}
+        style={{ boxShadow: "0 4px 14px 0 rgba(79, 70, 229, 0.3)" }}
+      >
+        Enroll Now & Crack the Code
+      </Button>
+    </Stack>
+
     </Box>
   );
 }

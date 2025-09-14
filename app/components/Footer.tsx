@@ -33,7 +33,7 @@ export function Footer() {
           <Grid.Col span={{ base: 12, md: 6 }}>
             <Stack gap={8}>
               <Text fw={800} fz={26} style={{ letterSpacing: -0.5 }}>
-                Crack<span style={{ color: '#ffd966' }}>CAT</span>
+                CrackCode<span style={{ color: '#ffd966' }}>CAT</span>
               </Text>
               <Text fz="sm" c="rgba(255,255,255,0.78)" style={{ maxWidth: 520, lineHeight: 1.5 }}>
                 Structured mentorship, adaptive practice and relentless analysis engineered to push you into the 95+ percentile bracket.
@@ -63,7 +63,7 @@ export function Footer() {
 
         <Divider color="rgba(255,255,255,0.12)" />
         <Group justify="space-between" pt={16} wrap="wrap" gap={8}>
-          <Text fz={12} c="rgba(255,255,255,0.6)">© {new Date().getFullYear()} CrackCAT. All rights reserved.</Text>
+          <Text fz={12} c="rgba(255,255,255,0.6)">© {new Date().getFullYear()} CrackCodeCAT. All rights reserved.</Text>
           <Text fz={12} c="rgba(255,255,255,0.55)">Made with care in India</Text>
         </Group>
       </Box>

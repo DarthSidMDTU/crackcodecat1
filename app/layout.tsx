@@ -11,6 +11,9 @@ import { Navbar } from './components/Navbar';
 export const metadata = {
   title: 'CAT Crack - Crack the Code in 45 Days',
   description: 'Join the best CAT preparation program with expert mentors and proven strategies.',
+  icons:{
+    icon:"./favicon.ico"
+  }
 };
 
 // Load readable, modern fonts and expose as CSS variables

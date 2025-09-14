@@ -14,20 +14,27 @@ export function FacultySpotlight() {
         <Grid gutter={{ base: 24, md: 40 }} align="center">
           <Grid.Col span={{ base: 12, md: 6 }}>
             <Box style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-              <Image
-                src="/crackcode.webp"
-                alt="Abhishek Anand"
-                style={{
-                  width: '100%',
-                  maxWidth: '540px',
-                  height: 'clamp(200px, 55vw, 520px)',
-                  objectFit: 'cover',
-                  display: 'block',
-                  borderRadius: 16
-                }}
-                width={50}
-                height={50}
-              />
+              
+<Image
+    src="/crackcode.webp"
+    alt="Abhishek Anand"
+    // --- FIX ---
+    // Use the ACTUAL dimensions of your source image file.
+    // Replace 1080 with the real width and height of "/crackcode.webp".
+    width={1080}
+    height={1080}
+    style={{
+        width: '100%',
+        maxWidth: '540px',
+        // --- BEST PRACTICE ---
+        // Set height to 'auto' to maintain the image's aspect ratio.
+        // This prevents the image from being squished or stretched.
+        height: 'auto', 
+        objectFit: 'cover', // You can keep this, but it's most useful when height is fixed.
+        display: 'block',
+        borderRadius: 16
+    }}
+/>
             </Box>
           </Grid.Col>
           <Grid.Col span={{ base: 12, md: 6 }}>
