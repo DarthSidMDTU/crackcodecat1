@@ -7,8 +7,8 @@ interface VideoCaptionProps {
 }
 
 export default function VideoCaption({
-  title = "Keep building. Keep moving.",
-  subtitle = "Small consistent steps today become the breakthroughs tomorrow.",
+  title = "Your last minute help. Come Learn to Score!",
+  subtitle = "Come get the thought process of VARC topper",
 }: VideoCaptionProps) {
   return (
     <Stack gap={4} align="center" mt="md" px="md">

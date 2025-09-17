@@ -111,7 +111,7 @@ export default function CrackCodeVARC() {
         </Grid.Col>
       </Grid>
 
-      <Divider my="xl" label={<Text c="indigo.9" fw={700}>Who is this for?</Text>} labelPosition="center" />
+      <Divider my="xl" label={<Text c="blue.9" fw={700}>Who is this for?</Text>} labelPosition="center" />
 
       {/* Who is this for */}
       <Grid gutter={36}>
@@ -159,25 +159,26 @@ export default function CrackCodeVARC() {
         </Grid.Col>
       </Grid>
 
-    <Stack 
-      align="center" 
+     <Stack
+      align="center"
       mt={{ base: 32, sm: 48 }}
       w="100%"
     >
       <Button
         component="a"
         href="/payment"
-        // --- THE FIX ---
-        // Use the hook's return value to conditionally set the size
-        size={isMobile ? 'md' : 'lg'} 
-        w={{ base: '100%', sm: 'auto' }} // This part is correct and can stay
-        radius="xl"
+        size={isMobile ? 'md' : 'xl'} // Increased size to better match the screenshot
+        w={{ base: '100%', sm: 'auto' }}
         variant="gradient"
-        gradient={{ from: "#4f46e5", to: "#818cf8" }}
-        leftSection={<IconTargetArrow size={20} />}
-        style={{ boxShadow: "0 4px 14px 0 rgba(79, 70, 229, 0.3)" }}
+        gradient={{ from: '#4f46e5', to: '#818cf8' }} // Your existing gradient
+        style={{
+          boxShadow: "0 4px 14px 0 rgba(79, 70, 229, 0.3)", // Your existing box shadow
+          paddingLeft: "2.5rem", // Adjust padding for a wider, more substantial look
+          paddingRight: "2.5rem",
+        }}
+        fz={{ base: 'md', sm: 'xl' }} // Set font size responsively
       >
-        Enroll Now & Crack the Code
+        Enroll Now !
       </Button>
     </Stack>
 

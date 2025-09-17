@@ -109,7 +109,7 @@ export function Navbar() {
                                 <IconPhoneCall size={24} />
                             </ActionIcon>
                             {/* 2. Add the YouTube icon for the desktop view */}
-                            <ActionIcon component="a" href="hhttps://www.youtube.com/@CrackCodeCAT" target="_blank" rel="noopener noreferrer" color="red" variant="light" size="lg">
+                            <ActionIcon component="a" href="https://www.youtube.com/@CrackCodeCAT" target="_blank" rel="noopener noreferrer" color="red" variant="light" size="lg">
                                 <IconBrandYoutube size={24} />
                             </ActionIcon>
                         </Group>
