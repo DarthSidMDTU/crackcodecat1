@@ -30,7 +30,7 @@ const heroSlides = [
     ],
     ctaButtons: [
       { text: "Enroll Now", variant: "filled", color: "blue" },
-      { text: "Book a Free Trial Class", variant: "filled", color: "grape" }
+      { text: "Book a Free Consultation Call", variant: "filled", color: "grape" }
     ]
   }
 ];
