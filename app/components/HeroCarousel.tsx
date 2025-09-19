@@ -136,6 +136,8 @@ export function HeroCarousel() {
                         color={button.color}
                         size={isMobile ? 'sm' : 'lg'}
                         radius="md"
+                        component='a'
+                        href='#consultation'
                         onClick={() => {
                           const el = document.getElementById('schedule');
                           if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
