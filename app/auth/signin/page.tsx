@@ -62,7 +62,10 @@ export default function SignInPage() {
 
       setMessage("Signed in successfully!");
       // Redirect to profile
-      window.location.href = "/profile";
+      if(data.user.role === "ADMIN") window.location.href = "/manager";
+      else{
+        window.location.href = "/profile";
+      }
     } catch (err) {
       setError("Server error");
     } finally {

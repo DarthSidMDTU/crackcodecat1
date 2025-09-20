@@ -54,7 +54,7 @@ export async function POST(req: NextRequest) {
       const BODY =
         "You have booked a free consultation call with our mentor, we will contact you soon.";
       await sendMail(email, BODY, SUBJECT);
-
+      await sendMail("crackcodecatclasses@gmail.com",`${name} has booked a consultation call\n Contact him at ${email} or no: ${mobile}`,`Consultation call from ${name}`)
       return NextResponse.json(
         {
           message: "Call booked successfully and email sent!",
