@@ -10,6 +10,7 @@ export interface IPayment extends Document {
   status: "Pending" | "Sucess" | "Failed";
   createdAt: Date;
   updatedAt: Date;
+  couponUsed : String;
 }
 
 const PaymentSchema = new Schema<IPayment>(
@@ -42,7 +43,11 @@ const PaymentSchema = new Schema<IPayment>(
       type: String,
       enum: ["Pending", "Success", "Failed"],
       default: "Pending",
-    }
+    },
+    couponUsed: {
+    type: String,
+    default: null, // It will be null if no coupon was used
+  }
   },
   { timestamps: true }
 );

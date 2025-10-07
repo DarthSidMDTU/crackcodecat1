@@ -11,10 +11,10 @@ import {
   Divider,
   LoadingOverlay,
   ThemeIcon,
-  Loader,
+  TextInput,
 } from "@mantine/core";
 import { useMediaQuery } from "@mantine/hooks";
-import { IconShieldCheck, IconLock, IconArrowRight } from "@tabler/icons-react";
+import { IconShieldCheck, IconLock, IconArrowRight, IconTicket, IconX, IconCheck } from "@tabler/icons-react";
 import { Document } from "mongoose";
 import { useUser } from "@/hooks/getuser";
 import { useRouter } from "next/navigation";
@@ -29,7 +29,7 @@ interface Course extends Document {
 
 declare global {
   interface Window {
-    Instamojo: any; // or specify the correct type if you know it
+    Instamojo: any;
   }
 }
 
@@ -41,29 +41,44 @@ export default function Payment() {
   const [course, setCourse] = useState<Course>();
   const { user, loading: userLoading } = useUser();
 
+  // --- State to manage loading of course data ---
+  const [courseLoading, setCourseLoading] = useState(true);
+  // ---------------------------------------------
+
+  const [couponCode, setCouponCode] = useState("");
+  const [appliedCoupon, setAppliedCoupon] = useState<{
+    code: string;
+    discount: number;
+  } | null>(null);
+  const [couponError, setCouponError] = useState<string | null>(null);
+  const [isVerifyingCoupon, setIsVerifyingCoupon] = useState(false);
+
   useEffect(() => {
-    // If user fetching is done and there's no user, redirect to login
     if (!userLoading && !user) {
       router.push("/auth/signin");
     }
   }, [user, userLoading, router]);
 
+  // --- Updated useEffect to manage loading state ---
   useEffect(() => {
     const fetchCourse = async () => {
+      setCourseLoading(true); // Ensure loading is true when fetching
       try {
         const res = await axios.get("/api/courses/");
         setCourse(res.data.courses[0]);
       } catch (err) {
         console.error("Failed to fetch course", err);
         setError("Could not load course details. Please try again later.");
+      } finally {
+        setCourseLoading(false); // Set loading to false after fetch completes
       }
     };
     fetchCourse();
   }, []);
+  // -----------------------------------------------
 
   useEffect(() => {
     if (typeof window !== "undefined" && window.Instamojo) {
-      // Configure handlers like onOpen, onClose, onSuccess, onFailure here
       window.Instamojo.configure({
         onOpen: () => {
           console.log("Checkout opened");
@@ -75,65 +90,88 @@ export default function Payment() {
         onSuccess: async (data: any) => {
           console.log("Payment successful", data);
           setPaymentProcessing(true);
-
-          const {payment_id,payment_request_id} = data; // Extract payment ID
-
+          const { payment_id, payment_request_id } = data;
           const intervalId = setInterval(async () => {
             try {
-              // Poll your backend to verify payment status using paymentId
               const res = await axios.post("/api/purchase/verify", {
                 payment_id,
-                payment_request_id
+                payment_request_id,
               });
-
               if (res.status === 200 && res.data.status === "success") {
-                clearInterval(intervalId); // Stop polling on success
+                clearInterval(intervalId);
                 setPaymentProcessing(false);
-                router.push("/success"); // Redirect to dashboard
+                router.push("/success");
               }
             } catch (error) {
               console.error("Error verifying payment:", error);
-              // Optionally clear interval or handle retries/failures here
             }
           }, 3000);
-
-          // Optional: stop polling after a max time (e.g. 2 minutes)
           setTimeout(() => {
             clearInterval(intervalId);
             setPaymentProcessing(false);
-            setError(`confirmation not received, check your profile after sometime\n
-      your payment id is ${payment_id}`);
-            // Optionally show a timeout/error message if no confirmation received
+            setError(
+              `Confirmation not received, check your profile after sometime\n
+               Your payment id is ${payment_id}`
+            );
           }, 2 * 60 * 1000);
         },
-
         onFailure: (data: any) => {
           console.error("Payment failed", data);
           setError("Payment failed, please try again");
-          // Show error or redirect to retry payment page
         },
       });
     }
   }, []);
 
   const breakdown = useMemo(() => {
-    if (!course) return { total: 0 };
+    if (!course) return { original: 0, discount: 0, total: 0 };
+    const originalPrice = course.price;
+    const discountAmount = appliedCoupon ? appliedCoupon.discount : 0;
+    const total = originalPrice - discountAmount;
+
     return {
-      total: course.price,
+      original: originalPrice,
+      discount: discountAmount,
+      total: total > 0 ? total : 0,
     };
-  }, [course]);
+  }, [course, appliedCoupon]);
+
+  const handleApplyCoupon = async () => {
+    if (!couponCode.trim()) return;
+    setIsVerifyingCoupon(true);
+    setCouponError(null);
+    setAppliedCoupon(null);
+    setError(null);
+
+    try {
+      const res = await axios.post("/api/coupons/verify", {
+        code: couponCode,
+        courseId: course?._id,
+      });
+
+      if (res.data.valid) {
+        setAppliedCoupon({ code: couponCode, discount: res.data.discount });
+      } else {
+        setCouponError(res.data.message || "Invalid coupon code.");
+      }
+    } catch (err: any) {
+      setCouponError(
+        err?.response?.data?.message || "Could not verify coupon."
+      );
+    } finally {
+      setIsVerifyingCoupon(false);
+    }
+  };
 
   const handlePay = async () => {
     setError(null);
     setPaymentProcessing(true);
-    console.log("sending this");
-    console.log(course?._id);
-    console.log(user?.userId);
 
     try {
       const orderRes = await axios.post("/api/purchase/initiate", {
         courseId: course?._id,
         userId: user?.userId,
+        couponCode: appliedCoupon ? appliedCoupon.code : null,
       });
 
       const paymentUrl = orderRes.data.paymentUrl;
@@ -162,18 +200,26 @@ export default function Payment() {
       }}
     >
       <Stack gap={isMobile ? 18 : 24}>
-        <Text fw={700} fz={20}>
-          Order Summary
-        </Text>
+        <Text fw={700} fz={20}>Order Summary</Text>
         <Stack gap={10}>
           <Text fw={700} fz="md" c="dimmed">
             {course?.courseName || "Course Name"}
           </Text>
+          <Group justify="space-between">
+            <Text>Original Price</Text>
+            <Text>₹{breakdown.original.toLocaleString("en-IN")}</Text>
+          </Group>
+          {appliedCoupon && (
+            <Group justify="space-between">
+              <Text c="green">Coupon Discount</Text>
+              <Text c="green">
+                - ₹{breakdown.discount.toLocaleString("en-IN")}
+              </Text>
+            </Group>
+          )}
           <Divider />
           <Group justify="space-between" mt="md">
-            <Text fw={700} fz="xl" c="blue.6">
-              Total Payable
-            </Text>
+            <Text fw={700} fz="xl" c="blue.6">Total Payable</Text>
             <Text
               fw={800}
               fz={32}
@@ -205,8 +251,8 @@ export default function Payment() {
     </Card>
   );
 
-  // Show a full-page loader while checking user status before redirecting
-  if (userLoading || !user) {
+  // This handles the initial loading screen while user data is being fetched
+  if (userLoading) {
     return (
       <LoadingOverlay
         visible={true}
@@ -225,29 +271,59 @@ export default function Payment() {
     >
       <Stack gap="xl">
         <Stack gap="md">
-          <Text fw={700} fz={20}>
-            Your Details
-          </Text>
+          <Text fw={700} fz={20}>Your Details</Text>
           <Stack gap={4}>
-            <Text fz="xs" tt="uppercase" c="dimmed" fw={600}>
-              Full Name
-            </Text>
-            <Text fw={500}>{user.name}</Text>
+            <Text fz="xs" tt="uppercase" c="dimmed" fw={600}>Full Name</Text>
+            <Text fw={500}>{user?.name}</Text>
           </Stack>
           <Stack gap={4}>
-            <Text fz="xs" tt="uppercase" c="dimmed" fw={600}>
-              Email
-            </Text>
-            <Text fw={500}>{user.email}</Text>
+            <Text fz="xs" tt="uppercase" c="dimmed" fw={600}>Email</Text>
+            <Text fw={500}>{user?.email}</Text>
           </Stack>
         </Stack>
-
-        {error && (
-          <Text fz="sm" c="red">
-            {error}
-          </Text>
-        )}
-
+        <Divider />
+        <Stack gap="xs">
+          <Text fw={600}>Have a coupon code?</Text>
+          <Group>
+            <TextInput
+              style={{ flex: 1 }}
+              placeholder="Enter coupon code"
+              leftSection={<IconTicket size={16} />}
+              value={couponCode}
+              onChange={(event) => setCouponCode(event.currentTarget.value)}
+              disabled={!!appliedCoupon}
+            />
+            {!appliedCoupon ? (
+              <Button
+                onClick={handleApplyCoupon}
+                loading={isVerifyingCoupon}
+                variant="light"
+              >
+                Apply
+              </Button>
+            ) : (
+              <Button
+                onClick={() => {
+                  setAppliedCoupon(null);
+                  setCouponCode("");
+                  setCouponError(null);
+                }}
+                variant="light"
+                color="red"
+              >
+                Remove
+              </Button>
+            )}
+          </Group>
+          {couponError && <Text c="red" size="sm">{couponError}</Text>}
+          {appliedCoupon && (
+            <Text c="green" size="sm" mt={4}>
+              <IconCheck size={16} style={{ verticalAlign: "middle" }} /> Coupon '
+              {appliedCoupon.code}' applied successfully!
+            </Text>
+          )}
+        </Stack>
+        {error && <Text fz="sm" c="red">{error}</Text>}
         <Button
           size="lg"
           radius="md"
@@ -262,7 +338,7 @@ export default function Payment() {
           }}
           onClick={handlePay}
         >
-          Pay Now
+          Pay ₹{breakdown.total.toLocaleString("en-IN")} Now
         </Button>
         <Text fz={11} c="dimmed" ta="center">
           By proceeding you agree to our Terms & Refund Policy.
@@ -274,8 +350,8 @@ export default function Payment() {
   return (
     <>
       <Script
-        id="razorpay-checkout-js"
-        src="https://checkout.razorpay.com/v1/checkout.js"
+        id="instamojo-checkout-js"
+        src="https://js.instamojo.com/v1/checkout.js"
       />
       <Card
         withBorder
@@ -289,16 +365,16 @@ export default function Payment() {
           position: "relative",
         }}
       >
+        {/* --- Updated LoadingOverlay to handle both payment and course loading --- */}
         <LoadingOverlay
-          visible={paymentProcessing}
+          visible={paymentProcessing || courseLoading}
           zIndex={40}
           overlayProps={{ bg: "#ffffffaa", blur: 2 }}
         />
+        {/* ------------------------------------------------------------------------- */}
         <Stack gap={32}>
           <Stack gap={4}>
-            <Text fw={800} fz={30} style={{ letterSpacing: -0.8 }}>
-              Secure Checkout
-            </Text>
+            <Text fw={800} fz={30} style={{ letterSpacing: -0.8 }}>Secure Checkout</Text>
             <Text fz="sm" c="dimmed">
               Enroll now to unlock live mentorship, adaptive practice, and the
               full mock stack instantly.
