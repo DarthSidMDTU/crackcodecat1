@@ -8,7 +8,7 @@ import User from "@/models/user";
 import { getInstamojoAccessToken } from "@/lib/insta_token";
 
 const validCoupons = new Map([
-  ["SAVE", { discountAmount: 3000, expiryDate: "2025-12-31", isActive: true }],
+  ["SAVE2499", { discountAmount: 2499, expiryDate: "2026-12-31", isActive: true }],
 ]);
 // ---------------------------------------------
 
