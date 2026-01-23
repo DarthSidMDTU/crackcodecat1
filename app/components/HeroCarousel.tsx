@@ -105,7 +105,7 @@ export function HeroCarousel() {
                   marginTop: '8px'
                 }}
               >
-                {`CAT 2025: ${Math.max(0, Math.ceil((new Date('2026-11-29').getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24)))} days remaining`}
+                {`CAT 2026: ${Math.max(0, Math.ceil((new Date('2026-11-29').getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24)))} days remaining`}
               </Title>
 
               {/* CTA Buttons */}
