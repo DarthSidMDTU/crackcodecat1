@@ -4,7 +4,7 @@ import { NextRequest, NextResponse } from "next/server";
 // --- Define and manage your valid coupons here ---
 // The key is the coupon code (in uppercase), and the value is an object with its details.
 const validCoupons = new Map([
-  ["SAVE2499", { discountAmount: 2499, expiryDate: "2026-12-31", isActive: true }],
+  ["SAVE2499", { discountAmount: 2499, expiryDate: "2050-12-31", isActive: true }],
 ]);
 // ----------------------------------------------------
 
